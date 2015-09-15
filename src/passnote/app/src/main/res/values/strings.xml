@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">passnote</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">密签</string>
     <string name="action_settings">Settings</string>
 </resources>
