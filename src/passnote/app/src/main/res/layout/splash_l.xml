@@ -1,6 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:background="@drawable/mainbg"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:src="@mipmap/splashbg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+            <TextView
+                android:textColor="@color/mainYellow"
+                android:text="说明\n具体还没想好........."
+                android:textSize="@dimen/mainTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="200dp"
+                android:gravity="center_horizontal" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/big_margin"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom">
+            <TextView
+                android:text="输入口令:"
+                android:textSize="@dimen/mainTextSize"
+                android:textColor="@color/mainYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                android:width="270sp"
+                android:singleLine="true"
+                android:textColor="@color/mainYellow"
+                android:layout_margin="@dimen/little_margin"
+                android:textSize="@dimen/mainTextSize"
+                android:paddingLeft="@dimen/textPadding"
+                android:paddingRight="@dimen/textPadding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:password="true"
+                android:layout_gravity="center" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/big_margin"
+            android:gravity="bottom">
+            <TextView
+                android:text="确认口令:"
+                android:textSize="@dimen/mainTextSize"
+                android:height="@dimen/mainLineHeight"
+                android:textColor="@color/mainYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+            <EditText
+                android:background="@drawable/rounded_edittext"
+                android:layout_margin="@dimen/little_margin"
+                android:width="270sp"
+                android:paddingLeft="@dimen/textPadding"
+                android:paddingRight="@dimen/textPadding"
+                android:singleLine="true"
+                android:textSize="@dimen/mainTextSize"
+                android:textColor="@color/mainYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:password="true"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+        <Button
+            android:text="GO"
+            android:id="@+id/enterBtn"
+            android:textColor="@color/mainGreen"
+            android:minHeight="24sp"
+            android:background="@drawable/rounded_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

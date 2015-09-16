@@ -1,5 +1,6 @@
 package codepig.passnote;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    //打开设置界面
+    public void openSetting(){
+//        Intent intent=new Intent(getApplication(), settingActivity.class);
+//        startActivity(intent);
     }
 
     @Override
