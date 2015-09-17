@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical" />
             <EditText
+                android:id="@+id/password_t"
                 android:background="@drawable/rounded_edittext"
                 android:width="270sp"
                 android:singleLine="true"
@@ -74,6 +75,7 @@
                 android:layout_gravity="center_vertical" />
             <EditText
                 android:background="@drawable/rounded_edittext"
+                android:id="@+id/passwordCheck_t"
                 android:layout_margin="@dimen/little_margin"
                 android:width="270sp"
                 android:paddingLeft="@dimen/textPadding"

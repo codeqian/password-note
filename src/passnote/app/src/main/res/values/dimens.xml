@@ -4,8 +4,11 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="little_margin">4dp</dimen>
     <dimen name="big_margin">8dp</dimen>
+    <dimen name="page_margin">16dp</dimen>
     <dimen name="textPadding">4sp</dimen>
+    <dimen name="textBigPadding">8sp</dimen>
     <dimen name="mainTextSize">16sp</dimen>
     <dimen name="mainTextH1">20sp</dimen>
+    <dimen name="mainTextH2">50sp</dimen>
     <dimen name="mainLineHeight">26sp</dimen>
 </resources>

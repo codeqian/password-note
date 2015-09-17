@@ -1,6 +1,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@mipmap/bg"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_height="match_parent">
+    <!-- 顶部工具栏-->
+    <LinearLayout
+        android:padding="@dimen/textBigPadding"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- 标题-->
+        <TextView
+            android:text="title"
+            android:id="@+id/title_t"
+            android:layout_weight="1"
+            android:textColor="@color/titleText"
+            android:textSize="@dimen/mainTextH2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!-- 按钮栏-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/pageTools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:text="new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/deletTools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:background="@mipmap/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <!-- 本页信息-->
+    <TextView
+        android:text="info..."
+        android:id="@+id/info_t"
+        android:paddingLeft="@dimen/textBigPadding"
+        android:paddingRight="@dimen/textBigPadding"
+        android:textColor="@color/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!-- 内容-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="center_horizontal" >
+        <LinearLayout
+            android:padding="@dimen/textBigPadding"
+            android:orientation="vertical"
+            android:id="@+id/contentList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="list..."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+        </ScrollView>
 </LinearLayout>
