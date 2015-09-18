@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainBody"
     android:layout_margin="@dimen/page_margin"
     android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
     <!-- 标题-->
     <LinearLayout
         android:orientation="horizontal"
@@ -37,9 +40,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical" />
-            <Button
+            <ImageView
+                android:layout_margin="@dimen/little_margin"
                 android:id="@+id/openBtn"
+                android:src="@mipmap/arrowbtn"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
@@ -52,7 +58,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="info..."
+            android:layout_marginBottom="@dimen/little_margin"
+            android:id="@+id/account_t"
+            android:text="account"
+            android:textColor="@color/mainGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginBottom="@dimen/little_margin"
+            android:id="@+id/password_t"
+            android:text="password"
+            android:textColor="@color/mainGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginBottom="@dimen/little_margin"
+            android:id="@+id/info_t"
+            android:text="info............................................................................................................."
             android:textColor="@color/mainGreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+
+import codepig.passnote.Utils.accountData;
+import codepig.passnote.view.expandPaper;
 
 /**
  * 主页
@@ -16,6 +20,7 @@ import android.view.MenuItem;
 public class MainActivity extends ActionBarActivity {
     private int alertCode=0;//警告框类型码,0=退出提示，1=删除提示
     private AlertDialog alertDialog;
+    private LinearLayout contentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +33,31 @@ public class MainActivity extends ActionBarActivity {
      * 设置view
      */
     private void initView(){
+        contentList=(LinearLayout) findViewById(R.id.contentList);
         alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", alertListener);
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", alertListener);
+
+        //test
+        creatList();
     }
 
+    /**
+     * 创建便签
+     */
+    private void creatList(){
+        for(int i=0;i<5;i++){
+            expandPaper paper=new expandPaper(this);
+            contentList.addView(paper);
+            accountData _data=new accountData();
+            _data.paperId=i;
+            _data.paperName="name"+i;
+            _data.account="test";
+            _data.password="123456";
+            _data.info="give me more";
+            paper.showData(_data);
+        }
+    }
     /**
      * 打开设置界面
      */
