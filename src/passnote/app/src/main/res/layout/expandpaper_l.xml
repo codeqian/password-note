@@ -43,6 +43,20 @@
                 android:layout_gravity="center_vertical" />
             <ImageView
                 android:layout_margin="@dimen/little_margin"
+                android:id="@+id/saveBtn"
+                android:src="@mipmap/savebtn"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_margin="@dimen/little_margin"
+                android:id="@+id/editBtn"
+                android:src="@mipmap/editbtn"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_margin="@dimen/little_margin"
                 android:id="@+id/openBtn"
                 android:src="@mipmap/arrowbtn"
                 android:layout_width="wrap_content"
