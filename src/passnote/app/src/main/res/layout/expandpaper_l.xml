@@ -8,6 +8,7 @@
      >
     <!-- 标题-->
     <LinearLayout
+        android:id="@+id/title_plan"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -77,6 +78,8 @@
             android:text="info............................................................................................................."
             android:textColor="@color/mainGreen"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:minLines="3"
+            android:maxLines="3" />
     </LinearLayout>
 </LinearLayout>

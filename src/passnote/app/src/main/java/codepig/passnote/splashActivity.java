@@ -42,16 +42,16 @@ public class splashActivity extends Activity {
     private View.OnClickListener enterApp = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
-            if(firstTime){
-                if(password_t.getText().toString().equals("")){
-                    Toast.makeText(context, "同学，您还啥都没输入呢！", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(!password_t.getText().toString().equals(passwordCheck_t.getText().toString())){
-                    Toast.makeText(context, "同学，您两次输入不一样啊！", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
+//            if(firstTime){
+//                if(password_t.getText().toString().equals("")){
+//                    Toast.makeText(context, "同学，您还啥都没输入呢！", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if(!password_t.getText().toString().equals(passwordCheck_t.getText().toString())){
+//                    Toast.makeText(context, "同学，您两次输入不一样啊！", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//            }
             config.theWords=password_t.getText().toString();
             startActivity(new Intent(getApplication(), MainActivity.class));
             finish();
