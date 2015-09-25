@@ -21,7 +21,7 @@ import codepig.passnote.Utils.accountData;
  * Created by QZD on 2015/9/17.
  */
 public class expandPaper extends LinearLayout {
-    private ImageView openBtn;
+    private ImageView openBtn,editBtn,saveBtn;
     private TextView index_t,title_t,account_t,password_t,info_t;
     private boolean opened=true;
     private int durationMillis = 200;
@@ -43,13 +43,19 @@ public class expandPaper extends LinearLayout {
         contentPage=(LinearLayout) findViewById(R.id.contentPage);
         title_plan=(LinearLayout) findViewById(R.id.title_plan);
         openBtn=(ImageView) findViewById(R.id.openBtn);
+        editBtn=(ImageView) findViewById(R.id.editBtn);
+        saveBtn=(ImageView) findViewById(R.id.saveBtn);
         index_t=(TextView) findViewById(R.id.index_t);
         title_t=(TextView) findViewById(R.id.title_t);
         account_t=(TextView) findViewById(R.id.account_t);
         password_t=(TextView) findViewById(R.id.password_t);
         info_t=(TextView) findViewById(R.id.info_t);
 
+        editBtn.setVisibility(INVISIBLE);
+        saveBtn.setVisibility(INVISIBLE);
         openBtn.setOnClickListener(btnClick);
+        editBtn.setOnClickListener(btnClick);
+        saveBtn.setOnClickListener(btnClick);
 
         mExpandAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.expand);
         mExpandAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -64,6 +70,7 @@ public class expandPaper extends LinearLayout {
             @Override
             public void onAnimationEnd(Animation animation) {
                 contentPage.clearAnimation();
+                editBtn.setVisibility(VISIBLE);
             }
         });
 
@@ -83,6 +90,8 @@ public class expandPaper extends LinearLayout {
             public void onAnimationEnd(Animation animation) {
                 contentPage.clearAnimation();
                 contentPage.setVisibility(View.GONE);
+                editBtn.setVisibility(INVISIBLE);
+                saveBtn.setVisibility(INVISIBLE);
             }
         });
 
@@ -131,6 +140,11 @@ public class expandPaper extends LinearLayout {
 //                        mExpandAnimation.setDuration(durationMillis);
                         contentPage.startAnimation(mExpandAnimation);
                     }
+                    break;
+                case R.id.saveBtn://保存编辑
+                    break;
+                case R.id.editBtn://进入编辑模式
+                    saveBtn.setVisibility(VISIBLE);
                     break;
                 default:
                     break;

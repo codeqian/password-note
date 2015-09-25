@@ -3,11 +3,14 @@ package codepig.passnote;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import codepig.passnote.Utils.accountData;
@@ -20,7 +23,8 @@ import codepig.passnote.view.expandPaper;
 public class MainActivity extends ActionBarActivity {
     private int alertCode=0;//警告框类型码,0=退出提示，1=删除提示
     private AlertDialog alertDialog;
-    private LinearLayout contentList;
+    private LinearLayout contentList,pageTools,deletTools;
+    private ImageView searchBtn,newBtn,allBtn,delBtn,closeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +38,18 @@ public class MainActivity extends ActionBarActivity {
      */
     private void initView(){
         contentList=(LinearLayout) findViewById(R.id.contentList);
+        deletTools=(LinearLayout) findViewById(R.id.deletTools);
+        pageTools=(LinearLayout) findViewById(R.id.pageTools);
+        searchBtn=(ImageView) findViewById(R.id.searchBtn);
+        newBtn=(ImageView) findViewById(R.id.newBtn);
+        allBtn=(ImageView) findViewById(R.id.allBtn);
+        delBtn=(ImageView) findViewById(R.id.delBtn);
+        closeBtn=(ImageView) findViewById(R.id.closeBtn);
         alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", alertListener);
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", alertListener);
 
+        deletTools.setVisibility(View.INVISIBLE);
         //test
         creatList();
     }
