@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,10 +24,12 @@ import codepig.passnote.Utils.accountData;
 public class expandPaper extends LinearLayout {
     private ImageView openBtn,editBtn,saveBtn;
     private TextView index_t,title_t,account_t,password_t,info_t;
+    private EditText title_edit,account_edit,password_edit,info_edit;
     private boolean opened=true;
     private int durationMillis = 200;
     private LinearLayout mainBody,contentPage,title_plan;
     private Animation mExpandAnimation,mCollapseAnimation;
+    private String index,title,account,password,info;
     public expandPaper(Context context) {
         super(context);
         init(context);
@@ -50,9 +53,13 @@ public class expandPaper extends LinearLayout {
         account_t=(TextView) findViewById(R.id.account_t);
         password_t=(TextView) findViewById(R.id.password_t);
         info_t=(TextView) findViewById(R.id.info_t);
+        title_edit=(EditText) findViewById(R.id.title_edit);
+        account_edit=(EditText) findViewById(R.id.account_edit);
+        password_edit=(EditText) findViewById(R.id.password_edit);
+        info_edit=(EditText) findViewById(R.id.info_edit);
 
-        editBtn.setVisibility(INVISIBLE);
-        saveBtn.setVisibility(INVISIBLE);
+        editBtn.setVisibility(GONE);
+        saveBtn.setVisibility(GONE);
         openBtn.setOnClickListener(btnClick);
         editBtn.setOnClickListener(btnClick);
         saveBtn.setOnClickListener(btnClick);
@@ -90,13 +97,31 @@ public class expandPaper extends LinearLayout {
             public void onAnimationEnd(Animation animation) {
                 contentPage.clearAnimation();
                 contentPage.setVisibility(View.GONE);
-                editBtn.setVisibility(INVISIBLE);
-                saveBtn.setVisibility(INVISIBLE);
+                editBtn.setVisibility(GONE);
+                saveBtn.setVisibility(GONE);
+                editAble(false);
             }
         });
 
+        editAble(false);
         opened=false;
         contentPage.setVisibility(View.GONE);
+    }
+
+    /**
+     * 填写信息
+     */
+    public void setData(String _index,String _title,String _account,String _password,String _info){
+        index=_index;
+        title=_title;
+        account=_account;
+        password=_password;
+        info=_info;
+        index_t.setText(_index);
+        title_t.setText(_title);
+        account_t.setText(_account);
+        password_t.setText(_password);
+        info_t.setText(_info);
     }
 
     /**
@@ -104,11 +129,7 @@ public class expandPaper extends LinearLayout {
      * @param _data
      */
     public void showData(accountData _data){
-        index_t.setText(Integer.toString(_data.paperId+1));
-        title_t.setText(_data.paperName);
-        account_t.setText(_data.account);
-        password_t.setText(_data.password);
-        info_t.setText(_data.info);
+        setData(Integer.toString(_data.paperId+1),_data.paperName,_data.account,_data.password,_data.info);
     }
 
     /**
@@ -142,13 +163,43 @@ public class expandPaper extends LinearLayout {
                     }
                     break;
                 case R.id.saveBtn://保存编辑
+                    saveBtn.setVisibility(GONE);
+                    editBtn.setVisibility(VISIBLE);
+                    editAble(false);
                     break;
                 case R.id.editBtn://进入编辑模式
                     saveBtn.setVisibility(VISIBLE);
+                    editBtn.setVisibility(GONE);
+                    editAble(true);
                     break;
                 default:
                     break;
             }
         }
     };
+
+    /**
+     * 切换编辑模式
+     */
+    private void editAble(boolean _edit){
+        if(_edit){
+            title_edit.setVisibility(VISIBLE);
+            account_edit.setVisibility(VISIBLE);
+            password_edit.setVisibility(VISIBLE);
+            info_edit.setVisibility(VISIBLE);
+            title_t.setVisibility(GONE);
+            account_t.setVisibility(GONE);
+            password_t.setVisibility(GONE);
+            info_t.setVisibility(GONE);
+        }else {
+            title_edit.setVisibility(GONE);
+            account_edit.setVisibility(GONE);
+            password_edit.setVisibility(GONE);
+            info_edit.setVisibility(GONE);
+            title_t.setVisibility(VISIBLE);
+            account_t.setVisibility(VISIBLE);
+            password_t.setVisibility(VISIBLE);
+            info_t.setVisibility(VISIBLE);
+        }
+    }
 }
