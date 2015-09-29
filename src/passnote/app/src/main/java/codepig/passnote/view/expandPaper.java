@@ -97,13 +97,14 @@ public class expandPaper extends LinearLayout {
             public void onAnimationEnd(Animation animation) {
                 contentPage.clearAnimation();
                 contentPage.setVisibility(View.GONE);
+                editAble(false);
                 editBtn.setVisibility(GONE);
                 saveBtn.setVisibility(GONE);
-                editAble(false);
             }
         });
 
         editAble(false);
+        editBtn.setVisibility(GONE);
         opened=false;
         contentPage.setVisibility(View.GONE);
     }
@@ -142,34 +143,13 @@ public class expandPaper extends LinearLayout {
                 case R.id.openBtn:
                     final int startValue = contentPage.getHeight();//起始高度
                     //展开或关闭内容
-                    Log.d("LOGCAT","opened:"+opened);
                     contentPage.clearAnimation();
-                    if(opened){
-                        opened=false;
-                        RotateAnimation animation = new RotateAnimation(180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                        animation.setDuration(durationMillis);
-                        animation.setFillAfter(true);
-                        openBtn.startAnimation(animation);
-//                        mCollapseAnimation.setDuration(durationMillis);
-                        contentPage.startAnimation(mCollapseAnimation);
-                    }else {
-                        opened=true;
-                        RotateAnimation animation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                        animation.setDuration(durationMillis);
-                        animation.setFillAfter(true);
-                        openBtn.startAnimation(animation);
-//                        mExpandAnimation.setDuration(durationMillis);
-                        contentPage.startAnimation(mExpandAnimation);
-                    }
+                    expandMe(opened);
                     break;
                 case R.id.saveBtn://保存编辑
-                    saveBtn.setVisibility(GONE);
-                    editBtn.setVisibility(VISIBLE);
                     editAble(false);
                     break;
                 case R.id.editBtn://进入编辑模式
-                    saveBtn.setVisibility(VISIBLE);
-                    editBtn.setVisibility(GONE);
                     editAble(true);
                     break;
                 default:
@@ -179,10 +159,35 @@ public class expandPaper extends LinearLayout {
     };
 
     /**
+     * 展开或收缩
+     */
+    public void expandMe(Boolean _open){
+        if(_open){
+            opened=false;
+            RotateAnimation animation = new RotateAnimation(180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            animation.setDuration(durationMillis);
+            animation.setFillAfter(true);
+            openBtn.startAnimation(animation);
+//                        mCollapseAnimation.setDuration(durationMillis);
+            contentPage.startAnimation(mCollapseAnimation);
+        }else {
+            opened=true;
+            RotateAnimation animation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            animation.setDuration(durationMillis);
+            animation.setFillAfter(true);
+            openBtn.startAnimation(animation);
+//                        mExpandAnimation.setDuration(durationMillis);
+            contentPage.startAnimation(mExpandAnimation);
+        }
+    }
+
+    /**
      * 切换编辑模式
      */
-    private void editAble(boolean _edit){
+    public void editAble(boolean _edit){
         if(_edit){
+            saveBtn.setVisibility(VISIBLE);
+            editBtn.setVisibility(GONE);
             title_edit.setVisibility(VISIBLE);
             account_edit.setVisibility(VISIBLE);
             password_edit.setVisibility(VISIBLE);
@@ -192,6 +197,8 @@ public class expandPaper extends LinearLayout {
             password_t.setVisibility(GONE);
             info_t.setVisibility(GONE);
         }else {
+            saveBtn.setVisibility(GONE);
+            editBtn.setVisibility(VISIBLE);
             title_edit.setVisibility(GONE);
             account_edit.setVisibility(GONE);
             password_edit.setVisibility(GONE);

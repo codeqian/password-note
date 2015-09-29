@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import codepig.passnote.Utils.accountData;
+import codepig.passnote.math.sqlHelper;
 import codepig.passnote.view.expandPaper;
 
 /**
@@ -25,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     private AlertDialog alertDialog;
     private LinearLayout contentList,pageTools,deletTools;
     private ImageView searchBtn,newBtn,allBtn,delBtn,closeBtn;
+    private sqlHelper mDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,12 @@ public class MainActivity extends ActionBarActivity {
         deletTools.setVisibility(View.INVISIBLE);
         //test
         creatList();
+
+        //获取DB管理
+        if(mDBHelper==null){
+            //获取数据库对象，如果数据库不存在，则创建数据库，messageCode.APPDBNAME为数据库名
+            mDBHelper=new sqlHelper(this);
+        }
     }
 
     /**

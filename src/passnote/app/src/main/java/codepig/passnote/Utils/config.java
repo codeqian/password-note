@@ -6,4 +6,7 @@ package codepig.passnote.Utils;
  */
 public class config {
     public static String theWords;
+    //数据库名称
+    public static final String APPDBNAME="pwNoteDB";
+    public static final String LISTTABLENAME="accountList";
 }
