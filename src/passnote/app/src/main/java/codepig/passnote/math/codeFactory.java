@@ -33,4 +33,22 @@ public class codeFactory {
             return null;
         }
     }
+
+    /**
+     * 文本加密（可逆）
+     * @param _info
+     * @return
+     */
+    public static String encodeWords(String _info){
+        return null;
+    }
+
+    /**
+     * 文本解密
+     * @param _info
+     * @return
+     */
+    public static String decodeWords(String _info){
+        return null;
+    }
 }

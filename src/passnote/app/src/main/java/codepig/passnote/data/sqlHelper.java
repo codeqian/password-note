@@ -1,4 +1,4 @@
-package codepig.passnote.math;
+package codepig.passnote.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +16,7 @@ public class sqlHelper extends SQLiteOpenHelper {
 
     public sqlHelper(Context context)
     {
-        super(context, config.APPDBNAME, null, 1);//this(context, name, factory, version, null);
+        super(context, config.APPDBNAME, null, 2);//this(context, name, factory, version, null);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class sqlHelper extends SQLiteOpenHelper {
         // TODO 创建数据库后，对数据库的操作
         Log.d("LOGCAT", "creatDb");
         //创建数据库时创建下载信息表
-        db.execSQL("CREATE TABLE " + config.LISTTABLENAME +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, vid VARCHAR, vname VARCHAR, uname VARCHAR, imgUrl VARCHAR, vUrl VARCHAR, position INT, done TINYINT)");
+        db.execSQL("CREATE TABLE " + config.LISTTABLENAME +" (_id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR, ac VARCHAR, pw VARCHAR, info VARCHAR)");
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import codepig.passnote.Utils.config;
+import codepig.passnote.Utils.dataCenter;
 import codepig.passnote.math.codeFactory;
 
 /**
@@ -68,7 +69,7 @@ public class splashActivity extends Activity {
                     return;
                 }
             }
-            config.theWords= password_t.getText().toString();
+            dataCenter.theWords= password_t.getText().toString();
             startActivity(new Intent(getApplication(), MainActivity.class));
             finish();
         }

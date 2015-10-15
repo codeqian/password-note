@@ -5,7 +5,6 @@ package codepig.passnote.Utils;
  * Created by QZD on 2015/9/17.
  */
 public class config {
-    public static String theWords;
     //数据库名称
     public static final String APPDBNAME="pwNoteDB";
     public static final String LISTTABLENAME="accountList";

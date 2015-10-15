@@ -13,9 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import codepig.passnote.R;
 import codepig.passnote.Utils.accountData;
+import codepig.passnote.data.sqlCenter;
 
 /**
  * 内容单页view
@@ -29,7 +31,8 @@ public class expandPaper extends LinearLayout {
     private int durationMillis = 200;
     private LinearLayout mainBody,contentPage,title_plan;
     private Animation mExpandAnimation,mCollapseAnimation;
-    private String index,title,account,password,info;
+    private accountData mData=null;
+    private long id;
     public expandPaper(Context context) {
         super(context);
         init(context);
@@ -112,25 +115,14 @@ public class expandPaper extends LinearLayout {
     /**
      * 填写信息
      */
-    public void setData(String _index,String _title,String _account,String _password,String _info){
-        index=_index;
-        title=_title;
-        account=_account;
-        password=_password;
-        info=_info;
-        index_t.setText(_index);
-        title_t.setText(_title);
-        account_t.setText(_account);
-        password_t.setText(_password);
-        info_t.setText(_info);
-    }
-
-    /**
-     * 设置具体信息
-     * @param _data
-     */
-    public void showData(accountData _data){
-        setData(Integer.toString(_data.paperId+1),_data.paperName,_data.account,_data.password,_data.info);
+    public void setData(accountData _data){
+        mData=_data;
+        id=_data.paperId;
+        index_t.setText(String.valueOf(mData.paperId+1));
+        title_t.setText(mData.paperName);
+        account_t.setText(mData.account);
+        password_t.setText(mData.password);
+        info_t.setText(mData.info);
     }
 
     /**
@@ -147,6 +139,7 @@ public class expandPaper extends LinearLayout {
                     expandMe(opened);
                     break;
                 case R.id.saveBtn://保存编辑
+                    saveData();
                     editAble(false);
                     break;
                 case R.id.editBtn://进入编辑模式
@@ -157,6 +150,25 @@ public class expandPaper extends LinearLayout {
             }
         }
     };
+
+    /**
+     * 保存信息
+     */
+    private void saveData(){
+        mData.paperName=title_edit.getText().toString();
+        mData.account=account_edit.getText().toString();
+        mData.password=password_edit.getText().toString();
+        mData.info=info_edit.getText().toString();
+        title_t.setText(mData.paperName);
+        account_t.setText(mData.account);
+        password_t.setText(mData.password);
+        info_t.setText(mData.info);
+        if(sqlCenter.updataInDB(String.valueOf(mData.paperId),mData.paperName,mData.account,mData.password,mData.info)>0){
+            editAble(false);
+        }else {
+            Log.d("LOGCAT","保存失败");
+        }
+    }
 
     /**
      * 展开或收缩
@@ -186,6 +198,10 @@ public class expandPaper extends LinearLayout {
      */
     public void editAble(boolean _edit){
         if(_edit){
+            title_edit.setText(title_t.getText().toString());
+            account_edit.setText(account_t.getText().toString());
+            password_edit.setText(password_t.getText().toString());
+            info_edit.setText(info_t.getText().toString());
             saveBtn.setVisibility(VISIBLE);
             editBtn.setVisibility(GONE);
             title_edit.setVisibility(VISIBLE);

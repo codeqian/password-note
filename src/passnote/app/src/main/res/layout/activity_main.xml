@@ -18,54 +18,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <!-- 按钮栏-->
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/pageTools"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/pageTools"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="false"
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:id="@+id/searchBtn"
+                android:layout_margin="@dimen/little_margin"
+                android:src="@mipmap/search"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true">
-                <ImageView
-                    android:id="@+id/searchBtn"
-                    android:layout_margin="@dimen/little_margin"
-                    android:src="@mipmap/search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:id="@+id/newBtn"
-                    android:layout_margin="@dimen/little_margin"
-                    android:src="@mipmap/add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/deletTools"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/newBtn"
+                android:layout_margin="@dimen/little_margin"
+                android:src="@mipmap/add"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true">
-                <ImageView
-                    android:id="@+id/allBtn"
-                    android:layout_margin="@dimen/little_margin"
-                    android:src="@mipmap/all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:id="@+id/delBtn"
-                    android:layout_margin="@dimen/little_margin"
-                    android:src="@mipmap/del"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:id="@+id/closeBtn"
-                    android:layout_margin="@dimen/little_margin"
-                    android:src="@mipmap/closebtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </RelativeLayout>
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/allBtn"
+                android:layout_margin="@dimen/little_margin"
+                android:src="@mipmap/all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/delBtn"
+                android:layout_margin="@dimen/little_margin"
+                android:src="@mipmap/del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/closeBtn"
+                android:layout_margin="@dimen/little_margin"
+                android:src="@mipmap/closebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
     <!-- 本页信息-->
     <TextView

@@ -1,20 +1,27 @@
 package codepig.passnote;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import codepig.passnote.Utils.accountData;
-import codepig.passnote.math.sqlHelper;
+import codepig.passnote.Utils.dataCenter;
+import codepig.passnote.data.sqlCenter;
+import codepig.passnote.data.sqlHelper;
 import codepig.passnote.view.expandPaper;
 
 /**
@@ -22,14 +29,19 @@ import codepig.passnote.view.expandPaper;
  * Created by QZD on 2015/9/15.
  */
 public class MainActivity extends ActionBarActivity {
+    private Context context;
     private int alertCode=0;//警告框类型码,0=退出提示，1=删除提示
     private AlertDialog alertDialog;
-    private LinearLayout contentList,pageTools,deletTools;
+    private TextView title_t,info_t;
+    private LinearLayout contentList,pageTools;
     private ImageView searchBtn,newBtn,allBtn,delBtn,closeBtn;
+    private int pageType=0;//页面类型，0=查看页，1=删除页
     private sqlHelper mDBHelper;
+    private List<expandPaper> paperList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context=this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
@@ -39,8 +51,11 @@ public class MainActivity extends ActionBarActivity {
      * 设置view
      */
     private void initView(){
+        dataCenter.dataList=new ArrayList<>();
+        paperList=new ArrayList<>();
+        title_t=(TextView) findViewById(R.id.title_t);
+        info_t=(TextView) findViewById(R.id.info_t);
         contentList=(LinearLayout) findViewById(R.id.contentList);
-        deletTools=(LinearLayout) findViewById(R.id.deletTools);
         pageTools=(LinearLayout) findViewById(R.id.pageTools);
         searchBtn=(ImageView) findViewById(R.id.searchBtn);
         newBtn=(ImageView) findViewById(R.id.newBtn);
@@ -51,37 +66,79 @@ public class MainActivity extends ActionBarActivity {
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", alertListener);
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", alertListener);
 
-        deletTools.setVisibility(View.INVISIBLE);
-        //test
-        creatList();
+        allBtn.setVisibility(View.GONE);
+        delBtn.setVisibility(View.GONE);
+        closeBtn.setVisibility(View.GONE);
+
+        searchBtn.setOnClickListener(clickBtn);
+        newBtn.setOnClickListener(clickBtn);
+        allBtn.setOnClickListener(clickBtn);
+        delBtn.setOnClickListener(clickBtn);
+        closeBtn.setOnClickListener(clickBtn);
+
+        showPageTitle("查看列表","");
 
         //获取DB管理
         if(mDBHelper==null){
             //获取数据库对象，如果数据库不存在，则创建数据库，messageCode.APPDBNAME为数据库名
             mDBHelper=new sqlHelper(this);
         }
+        sqlCenter.initSqlManager(mDBHelper);
+        sqlCenter.getList();
+        creatList();
     }
 
     /**
-     * 创建便签
+     * 显示页面抬头信息
+     */
+    private void showPageTitle(String _title,String _info){
+        title_t.setText(_title);
+        info_t.setText(_info);
+    }
+
+    /**
+     * 创建列表
      */
     private void creatList(){
-        for(int i=0;i<5;i++){
+        for (int i=0;i<dataCenter.dataList.size();i++){
             expandPaper paper=new expandPaper(this);
             contentList.addView(paper);
-            accountData _data=new accountData();
-            _data.paperId=i;
-            _data.paperName="name"+i;
-            _data.account="test";
-            _data.password="123456";
-            _data.info="give me more";
-            paper.showData(_data);
+            paper.setData(dataCenter.dataList.get(i));
         }
     }
+
+    /**
+     * 新建一条
+     */
+    private void newOne(){
+        accountData acInfo=new accountData();
+        acInfo.paperId=sqlCenter.insDataInDB("","","","");
+        if(acInfo.paperId==-1){
+            Toast.makeText(context, "插入条目失败", Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            dataCenter.dataList.add(acInfo);
+            expandPaper paper=new expandPaper(this);
+            contentList.addView(paper);
+            paper.expandMe(true);
+            paper.editAble(true);
+            paper.setData(acInfo);
+        }
+        return;
+    }
+
+    /**
+     * 删除条目
+     */
+    private void deleteOne(int _index){
+        long _id=dataCenter.dataList.get(_index).paperId;
+        sqlCenter.delDataInDB(String.valueOf(_id));
+    }
+
     /**
      * 打开设置界面
      */
-    public void openSetting(){
+    private void openSetting(){
 //        Intent intent=new Intent(getApplication(), settingActivity.class);
 //        startActivity(intent);
     }
@@ -118,9 +175,43 @@ public class MainActivity extends ActionBarActivity {
     };
 
     /**
+     * 按钮监听
+     */
+    private View.OnClickListener clickBtn = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.searchBtn://搜索
+                    break;
+                case R.id.newBtn://新建
+                    newOne();
+                    break;
+                case R.id.allBtn://全选
+                    break;
+                case R.id.delBtn://删除
+                    break;
+                case R.id.closeBtn://退出
+                    if(pageType==0){
+                        closeBtn.setVisibility(View.GONE);
+                    }else{
+                        searchBtn.setVisibility(View.VISIBLE);
+                        newBtn.setVisibility(View.VISIBLE);
+                        allBtn.setVisibility(View.GONE);
+                        delBtn.setVisibility(View.GONE);
+                        closeBtn.setVisibility(View.GONE);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    /**
      * 退出app
      */
     private void quitApp(){
+        sqlCenter.closeDB();
         alertDialog.hide();
         System.exit(0);
     }
@@ -141,6 +232,9 @@ public class MainActivity extends ActionBarActivity {
         return false;
     }
 
+    /**
+     *
+     */
     /**
      * 设置
      * @param menu
@@ -164,7 +258,6 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
