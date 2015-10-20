@@ -3,6 +3,7 @@ package codepig.passnote.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import codepig.passnote.Utils.accountData;
 import codepig.passnote.Utils.config;
@@ -41,6 +42,8 @@ public class sqlCenter {
                 acInfo.password=c.getString(3);
                 acInfo.info=c.getString(4);
                 dataCenter.dataList.add(acInfo);
+                Log.d("LOGCAT","data:"+acInfo.paperId+"-"+acInfo.paperName);
+                c.moveToNext();
             }
         }
         c.close();

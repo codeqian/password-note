@@ -103,6 +103,7 @@ public class MainActivity extends ActionBarActivity {
         for (int i=0;i<dataCenter.dataList.size();i++){
             expandPaper paper=new expandPaper(this);
             contentList.addView(paper);
+            paper.setOnLongClickListener(longClick);
             paper.setData(dataCenter.dataList.get(i));
         }
     }
@@ -171,6 +172,16 @@ public class MainActivity extends ActionBarActivity {
                 default:
                     break;
             }
+        }
+    };
+
+    /**
+     * 长按监听
+     */
+    private View.OnLongClickListener longClick=new View.OnLongClickListener(){
+        public boolean onLongClick(View v) {
+            Log.d("LOGCAT","longClick");
+            return true;
         }
     };
 
