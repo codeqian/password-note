@@ -9,11 +9,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import codepig.passnote.R;
 import codepig.passnote.Utils.accountData;
@@ -24,6 +24,7 @@ import codepig.passnote.data.sqlCenter;
  * Created by QZD on 2015/9/17.
  */
 public class expandPaper extends LinearLayout {
+    private CheckBox delCheck;
     private ImageView openBtn,editBtn,saveBtn;
     private TextView index_t,title_t,account_t,password_t,info_t;
     private EditText title_edit,account_edit,password_edit,info_edit;
@@ -60,7 +61,9 @@ public class expandPaper extends LinearLayout {
         account_edit=(EditText) findViewById(R.id.account_edit);
         password_edit=(EditText) findViewById(R.id.password_edit);
         info_edit=(EditText) findViewById(R.id.info_edit);
+        delCheck=(CheckBox) findViewById(R.id.delCheck);
 
+        delCheck.setVisibility(GONE);
         editBtn.setVisibility(GONE);
         saveBtn.setVisibility(GONE);
         openBtn.setOnClickListener(btnClick);
@@ -117,11 +120,19 @@ public class expandPaper extends LinearLayout {
     public void setData(accountData _data){
         mData=_data;
         id=_data.paperId;
-        index_t.setText(String.valueOf(mData.paperId));
+//        index_t.setText(String.valueOf(_index));
+//        index_t.setText(String.valueOf(mData.paperId));
         title_t.setText(mData.paperName);
         account_t.setText(mData.account);
         password_t.setText(mData.password);
         info_t.setText(mData.info);
+    }
+
+    /**
+     * 设置编号
+     */
+    public void setIndex(int _index){
+        index_t.setText(String.valueOf(_index));
     }
 
     /**
@@ -165,7 +176,7 @@ public class expandPaper extends LinearLayout {
         if(sqlCenter.updataInDB(String.valueOf(mData.paperId),mData.paperName,mData.account,mData.password,mData.info)>0){
             editAble(false);
         }else {
-            Log.d("LOGCAT","保存失败");
+            Log.d("LOGCAT", "保存失败");
         }
     }
 
@@ -190,6 +201,36 @@ public class expandPaper extends LinearLayout {
 //                        mCollapseAnimation.setDuration(durationMillis);
             contentPage.startAnimation(mCollapseAnimation);
         }
+    }
+
+    /**
+     * 返回选取状态
+     */
+    public Boolean isChecked(){
+        return delCheck.isChecked();
+    }
+
+    /**
+     * 切换删除模式
+     */
+    public void delAble(Boolean _del){
+        if(_del){
+            delCheck.setVisibility(VISIBLE);
+            if(opened){
+                expandMe(!opened);
+            }
+            editBtn.setVisibility(GONE);
+            saveBtn.setVisibility(GONE);
+        }else{
+            delCheck.setVisibility(GONE);
+        }
+    }
+
+    /**
+     * 删除选中
+     */
+    public void delChecked(){
+        delCheck.setChecked(true);
     }
 
     /**

@@ -30,7 +30,6 @@ import codepig.passnote.view.expandPaper;
  */
 public class MainActivity extends ActionBarActivity {
     private Context context;
-    private int alertCode=0;//警告框类型码,0=退出提示，1=删除提示
     private AlertDialog alertDialog;
     private TextView title_t,info_t;
     private LinearLayout contentList,pageTools;
@@ -39,6 +38,11 @@ public class MainActivity extends ActionBarActivity {
     private sqlHelper mDBHelper;
     private List<expandPaper> paperList;
 
+    private final int ENABLEDEL=0;
+    private final int DELPAPER=1;
+    private final int CHECKALL=2;
+    private final int DISABLEDEL=3;
+    private final int SETINDEX=4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         context=this;
@@ -102,10 +106,12 @@ public class MainActivity extends ActionBarActivity {
     private void creatList(){
         for (int i=0;i<dataCenter.dataList.size();i++){
             expandPaper paper=new expandPaper(this);
+            paperList.add(paper);
             contentList.addView(paper);
             paper.setOnLongClickListener(longClick);
             paper.setData(dataCenter.dataList.get(i));
         }
+        action2All(SETINDEX);
     }
 
     /**
@@ -120,20 +126,54 @@ public class MainActivity extends ActionBarActivity {
         }else{
             dataCenter.dataList.add(acInfo);
             expandPaper paper=new expandPaper(this);
+            paperList.add(paper);
             contentList.addView(paper);
             paper.expandMe(true);
             paper.editAble(true);
             paper.setData(acInfo);
         }
+        action2All(SETINDEX);
         return;
     }
 
     /**
      * 删除条目
      */
-    private void deleteOne(int _index){
+    private void deleteOneInData(int _index){
         long _id=dataCenter.dataList.get(_index).paperId;
         sqlCenter.delDataInDB(String.valueOf(_id));
+        dataCenter.dataList.remove(_index);
+    }
+
+    /**
+     * 遍历操作
+     */
+    private void action2All(int actionType){
+        for (int i = 0; i < paperList.size(); i++) {
+            switch (actionType) {
+                case DELPAPER://删除
+                    if(paperList.get(i).isChecked()){
+                        deleteOneInData(i);
+                        contentList.removeView(paperList.get(i));
+                        paperList.remove(i);
+                        i--;
+                    }
+                    break;
+                case ENABLEDEL://切换到删除操作
+                    paperList.get(i).delAble(true);
+                    break;
+                case DISABLEDEL://切换到删除操作
+                    paperList.get(i).delAble(false);
+                    break;
+                case CHECKALL://选取全部
+                    break;
+                case SETINDEX:
+                    paperList.get(i).setIndex(i+1);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     /**
@@ -145,8 +185,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     //显示警告消息框
-    private void showalert(String _msg,int _code){
-        alertCode=_code;
+    private void showAlert(String _msg){
         alertDialog.setMessage(_msg);
         alertDialog.show();
     }
@@ -160,10 +199,10 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    if(alertCode==0) {
+                    if(pageType==0) {
                         quitApp();
-                    }else if(alertCode==1){
-                        //
+                    }else if(pageType==1){
+                        action2All(DELPAPER);
                     }
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -180,7 +219,18 @@ public class MainActivity extends ActionBarActivity {
      */
     private View.OnLongClickListener longClick=new View.OnLongClickListener(){
         public boolean onLongClick(View v) {
-            Log.d("LOGCAT","longClick");
+            //切换到删除界面
+            pageType=1;
+            //遍历列表，切换到删除操作
+            action2All(ENABLEDEL);
+            expandPaper _checkedPaper=(expandPaper) v;
+            _checkedPaper.delChecked();
+            showPageTitle("删除记录", "请勾选您需要删除的记录");
+            searchBtn.setVisibility(View.GONE);
+            newBtn.setVisibility(View.GONE);
+//            allBtn.setVisibility(View.VISIBLE);
+            delBtn.setVisibility(View.VISIBLE);
+            closeBtn.setVisibility(View.VISIBLE);
             return true;
         }
     };
@@ -200,23 +250,29 @@ public class MainActivity extends ActionBarActivity {
                 case R.id.allBtn://全选
                     break;
                 case R.id.delBtn://删除
+                    showAlert("您确定要删除这些记录吗？");
                     break;
-                case R.id.closeBtn://退出
-                    if(pageType==0){
-                        closeBtn.setVisibility(View.GONE);
-                    }else{
-                        searchBtn.setVisibility(View.VISIBLE);
-                        newBtn.setVisibility(View.VISIBLE);
-                        allBtn.setVisibility(View.GONE);
-                        delBtn.setVisibility(View.GONE);
-                        closeBtn.setVisibility(View.GONE);
-                    }
+                case R.id.closeBtn://退出删除操作
+                    gotoListPage();
                     break;
                 default:
                     break;
             }
         }
     };
+
+    /**
+     * 退出删除操作状态
+     */
+    private void gotoListPage(){
+        pageType=0;
+        searchBtn.setVisibility(View.VISIBLE);
+        newBtn.setVisibility(View.VISIBLE);
+        allBtn.setVisibility(View.GONE);
+        delBtn.setVisibility(View.GONE);
+        closeBtn.setVisibility(View.GONE);
+        action2All(DISABLEDEL);
+    }
 
     /**
      * 退出app
@@ -237,15 +293,16 @@ public class MainActivity extends ActionBarActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if (keyCode == KeyEvent.KEYCODE_BACK )
         {
-            showalert("您这就要走了吗？",0);
+            if(pageType==0) {
+                showAlert("您这就要走了吗？");
+            }else if(pageType==1){
+                gotoListPage();
+            }
             return true;
         }
         return false;
     }
 
-    /**
-     *
-     */
     /**
      * 设置
      * @param menu

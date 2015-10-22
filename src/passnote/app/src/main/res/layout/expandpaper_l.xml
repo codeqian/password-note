@@ -54,6 +54,12 @@
                 android:layout_height="wrap_content"
                 android:hint="请输入标题"
                 android:layout_gravity="center" />
+            <CheckBox
+                style="@style/circleCheckbox"
+                android:id="@+id/delCheck"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <ImageView
                 android:layout_margin="@dimen/little_margin"
                 android:id="@+id/saveBtn"
