@@ -35,6 +35,18 @@ public class codeFactory {
     }
 
     /**
+     * 检测口令长度
+     */
+    public static int checkWordLength(String _key){
+        if (_key == null) {
+            _key = "";
+        }
+        StringBuffer sBuffer = new StringBuffer(16);
+        sBuffer.append(_key);
+        return sBuffer.length();
+    }
+
+    /**
      * 文本加密（可逆）
      * @param _info
      * @return

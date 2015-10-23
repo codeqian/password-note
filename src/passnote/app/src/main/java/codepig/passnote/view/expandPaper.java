@@ -75,7 +75,6 @@ public class expandPaper extends LinearLayout {
             @Override
             public void onAnimationStart(Animation animation) {
                 contentPage.setVisibility(View.VISIBLE);
-                editBtn.setVisibility(VISIBLE);
             }
             @Override
             public void onAnimationRepeat(Animation animation) {
@@ -91,9 +90,6 @@ public class expandPaper extends LinearLayout {
         mCollapseAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                editAble(false);
-                editBtn.setVisibility(GONE);
-                saveBtn.setVisibility(GONE);
             }
 
             @Override
@@ -186,6 +182,7 @@ public class expandPaper extends LinearLayout {
     public void expandMe(Boolean _open){
         if(_open){
             opened=true;
+            editBtn.setVisibility(VISIBLE);
             RotateAnimation animation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             animation.setDuration(durationMillis);
             animation.setFillAfter(true);
@@ -194,6 +191,9 @@ public class expandPaper extends LinearLayout {
             contentPage.startAnimation(mExpandAnimation);
         }else {
             opened=false;
+            editAble(false);
+            editBtn.setVisibility(GONE);
+            saveBtn.setVisibility(GONE);
             RotateAnimation animation = new RotateAnimation(180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             animation.setDuration(durationMillis);
             animation.setFillAfter(true);

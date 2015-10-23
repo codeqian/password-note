@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import codepig.passnote.Utils.config;
@@ -22,8 +23,8 @@ import codepig.passnote.math.codeFactory;
 public class splashActivity extends Activity {
     private Context context;
     private Button enterBtn;
-    private EditText password_t;
-    private EditText passwordCheck_t;
+    private EditText password_t,passwordCheck_t;
+    private TextView readme_t;
     private boolean firstTime=true;
     private SharedPreferences.Editor editor;
     private SharedPreferences settings;
@@ -33,6 +34,7 @@ public class splashActivity extends Activity {
         context = this;
 
         enterBtn=(Button) findViewById(R.id.enterBtn);
+        readme_t=(TextView) findViewById(R.id.readme_t);
         password_t=(EditText) findViewById(R.id.password_t);
         passwordCheck_t=(EditText) findViewById(R.id.passwordCheck_t);
         enterBtn.setOnClickListener(enterApp);
@@ -42,6 +44,11 @@ public class splashActivity extends Activity {
         if(!cameBefore.equals("")){
             passwordCheck_t.setVisibility(View.GONE);
             firstTime=false;
+        }
+        if(firstTime){
+            readme_t.setText("请输入您的口令。口令将被用来加密所有文本。我不会保存该口令，并且目前也还不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
+        }else{
+            readme_t.setText("请输入您的口令。口令将被用来加密所有文本。我不会保存该口令，并且目前也还不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
         }
     }
 
@@ -70,6 +77,7 @@ public class splashActivity extends Activity {
                 }
             }
             dataCenter.theWords= password_t.getText().toString();
+            Log.d("LOGCAT","口令字节数："+codeFactory.checkWordLength(dataCenter.theWords));
             startActivity(new Intent(getApplication(), MainActivity.class));
             finish();
         }

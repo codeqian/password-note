@@ -129,8 +129,9 @@ public class MainActivity extends ActionBarActivity {
             paperList.add(paper);
             contentList.addView(paper);
             paper.expandMe(true);
-            paper.editAble(true);
+            paper.setOnLongClickListener(longClick);
             paper.setData(acInfo);
+            paper.editAble(true);
         }
         action2All(SETINDEX);
         return;
@@ -214,7 +215,7 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
-    /**
+    /**w
      * 长按监听
      */
     private View.OnLongClickListener longClick=new View.OnLongClickListener(){

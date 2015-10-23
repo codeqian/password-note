@@ -21,15 +21,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
             <TextView
+                android:id="@+id/readme_t"
+                android:layout_marginLeft="@dimen/big_margin"
+                android:layout_marginRight="@dimen/big_margin"
+                android:text="请输入您的口令。口令将被用来加密所有文本。我不会保存该口令，并且目前也还不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。"
                 android:textColor="@color/mainYellow"
-                android:text="说明\n具体还没想好........."
                 android:textSize="@dimen/mainTextSize"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="200dp"
-                android:gravity="center_horizontal" />
+                android:layout_marginTop="160dp" />
         </RelativeLayout>
         <LinearLayout
             android:layout_marginTop="@dimen/big_margin"
