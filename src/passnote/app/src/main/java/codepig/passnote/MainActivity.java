@@ -73,6 +73,7 @@ public class MainActivity extends ActionBarActivity {
         allBtn.setVisibility(View.GONE);
         delBtn.setVisibility(View.GONE);
         closeBtn.setVisibility(View.GONE);
+        searchBtn.setVisibility(View.GONE);
 
         searchBtn.setOnClickListener(clickBtn);
         newBtn.setOnClickListener(clickBtn);
@@ -227,7 +228,7 @@ public class MainActivity extends ActionBarActivity {
             expandPaper _checkedPaper=(expandPaper) v;
             _checkedPaper.delChecked();
             showPageTitle("删除记录", "请勾选您需要删除的记录");
-            searchBtn.setVisibility(View.GONE);
+//            searchBtn.setVisibility(View.GONE);
             newBtn.setVisibility(View.GONE);
 //            allBtn.setVisibility(View.VISIBLE);
             delBtn.setVisibility(View.VISIBLE);
@@ -267,7 +268,7 @@ public class MainActivity extends ActionBarActivity {
      */
     private void gotoListPage(){
         pageType=0;
-        searchBtn.setVisibility(View.VISIBLE);
+//        searchBtn.setVisibility(View.VISIBLE);
         newBtn.setVisibility(View.VISIBLE);
         allBtn.setVisibility(View.GONE);
         delBtn.setVisibility(View.GONE);

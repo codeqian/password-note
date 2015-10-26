@@ -46,9 +46,9 @@ public class splashActivity extends Activity {
             firstTime=false;
         }
         if(firstTime){
-            readme_t.setText("请输入您的口令。口令将被用来加密所有文本。我不会保存该口令，并且目前也还不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
+            readme_t.setText("请输入您的口令。我不会保存该口令，并且目前不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
         }else{
-            readme_t.setText("请输入您的口令。口令将被用来加密所有文本。我不会保存该口令，并且目前也还不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
+            readme_t.setText("请输入您的口令。我不会保存该口令，并且目前不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
         }
     }
 
@@ -58,6 +58,15 @@ public class splashActivity extends Activity {
     private View.OnClickListener enterApp = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
+            String checkMsg=codeFactory.checkWordLength(password_t.getText().toString());
+            if(checkMsg.equals("tooLong")){
+                Toast.makeText(context, "口令长度不能超过16个字符！", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(checkMsg.equals("notLetter")){
+                Toast.makeText(context, "口令只能包含数字和英文字母！", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if(firstTime){
                 if(password_t.getText().toString().equals("")){
                     Toast.makeText(context, "您还啥都没输入呢！", Toast.LENGTH_SHORT).show();
@@ -77,7 +86,6 @@ public class splashActivity extends Activity {
                 }
             }
             dataCenter.theWords= password_t.getText().toString();
-            Log.d("LOGCAT","口令字节数："+codeFactory.checkWordLength(dataCenter.theWords));
             startActivity(new Intent(getApplication(), MainActivity.class));
             finish();
         }

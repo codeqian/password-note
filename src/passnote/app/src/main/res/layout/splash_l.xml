@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:gravity="center">
         <RelativeLayout
+            android:layout_marginBottom="@dimen/big_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -24,7 +25,6 @@
                 android:id="@+id/readme_t"
                 android:layout_marginLeft="@dimen/big_margin"
                 android:layout_marginRight="@dimen/big_margin"
-                android:text="请输入您的口令。口令将被用来加密所有文本。我不会保存该口令，并且目前也还不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。"
                 android:textColor="@color/mainYellow"
                 android:textSize="@dimen/mainTextSize"
                 android:layout_width="130dp"
@@ -33,65 +33,39 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="160dp" />
         </RelativeLayout>
-        <LinearLayout
-            android:layout_marginTop="@dimen/big_margin"
-            android:orientation="horizontal"
+        <EditText
+            android:id="@+id/password_t"
+            android:background="@drawable/rounded_edittext"
+            android:width="300sp"
+            android:singleLine="true"
+            android:hint="口令：请输入不超过16个字符的文本"
+            android:textColor="@color/mainYellow"
+            android:layout_margin="@dimen/little_margin"
+            android:textSize="@dimen/mainTextSize"
+            android:paddingLeft="@dimen/textPadding"
+            android:paddingRight="@dimen/textPadding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom">
-            <TextView
-                android:text="输入口令:"
-                android:textSize="@dimen/mainTextSize"
-                android:textColor="@color/mainYellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical" />
-            <EditText
-                android:id="@+id/password_t"
-                android:background="@drawable/rounded_edittext"
-                android:width="270sp"
-                android:singleLine="true"
-                android:textColor="@color/mainYellow"
-                android:layout_margin="@dimen/little_margin"
-                android:textSize="@dimen/mainTextSize"
-                android:paddingLeft="@dimen/textPadding"
-                android:paddingRight="@dimen/textPadding"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:password="true"
-                android:layout_gravity="center" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
+            android:password="true"
+            android:layout_gravity="center" />
+        <EditText
+            android:background="@drawable/rounded_edittext"
+            android:id="@+id/passwordCheck_t"
+            android:layout_margin="@dimen/little_margin"
+            android:hint="确认口令"
+            android:width="300sp"
+            android:paddingLeft="@dimen/textPadding"
+            android:paddingRight="@dimen/textPadding"
+            android:singleLine="true"
+            android:textSize="@dimen/mainTextSize"
+            android:textColor="@color/mainYellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/big_margin"
-            android:gravity="bottom">
-            <TextView
-                android:text="确认口令:"
-                android:textSize="@dimen/mainTextSize"
-                android:height="@dimen/mainLineHeight"
-                android:textColor="@color/mainYellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical" />
-            <EditText
-                android:background="@drawable/rounded_edittext"
-                android:id="@+id/passwordCheck_t"
-                android:layout_margin="@dimen/little_margin"
-                android:width="270sp"
-                android:paddingLeft="@dimen/textPadding"
-                android:paddingRight="@dimen/textPadding"
-                android:singleLine="true"
-                android:textSize="@dimen/mainTextSize"
-                android:textColor="@color/mainYellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:password="true"
-                android:layout_gravity="center_vertical" />
-        </LinearLayout>
+            android:password="true"
+            android:layout_gravity="center_vertical" />
         <Button
             android:text="GO"
+            android:layout_marginTop="@dimen/big_margin"
             android:id="@+id/enterBtn"
             android:textColor="@color/mainGreen"
             android:minHeight="24sp"

@@ -119,9 +119,9 @@ public class expandPaper extends LinearLayout {
 //        index_t.setText(String.valueOf(_index));
 //        index_t.setText(String.valueOf(mData.paperId));
         title_t.setText(mData.paperName);
-        account_t.setText(mData.account);
-        password_t.setText(mData.password);
-        info_t.setText(mData.info);
+        account_t.setText("账号:"+mData.account);
+        password_t.setText("密码:"+mData.password);
+        info_t.setText("备注:"+mData.info);
     }
 
     /**
