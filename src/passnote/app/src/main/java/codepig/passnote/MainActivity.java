@@ -3,6 +3,7 @@ package codepig.passnote;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +11,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,11 +36,14 @@ public class MainActivity extends ActionBarActivity {
     private Context context;
     private AlertDialog alertDialog;
     private TextView title_t,info_t;
+    private EditText searchKey_t;
     private LinearLayout contentList,pageTools;
     private ImageView searchBtn,newBtn,allBtn,delBtn,closeBtn;
     private int pageType=0;//页面类型，0=查看页，1=删除页
     private sqlHelper mDBHelper;
     private List<expandPaper> paperList;
+    private ScrollView listSV;
+    private Handler mHandler = new Handler();
 
     private final int ENABLEDEL=0;
     private final int DELPAPER=1;
@@ -59,6 +66,7 @@ public class MainActivity extends ActionBarActivity {
         paperList=new ArrayList<>();
         title_t=(TextView) findViewById(R.id.title_t);
         info_t=(TextView) findViewById(R.id.info_t);
+        searchKey_t=(EditText) findViewById(R.id.searchKey_t);
         contentList=(LinearLayout) findViewById(R.id.contentList);
         pageTools=(LinearLayout) findViewById(R.id.pageTools);
         searchBtn=(ImageView) findViewById(R.id.searchBtn);
@@ -66,6 +74,7 @@ public class MainActivity extends ActionBarActivity {
         allBtn=(ImageView) findViewById(R.id.allBtn);
         delBtn=(ImageView) findViewById(R.id.delBtn);
         closeBtn=(ImageView) findViewById(R.id.closeBtn);
+        listSV=(ScrollView) findViewById(R.id.listSV);
         alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", alertListener);
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", alertListener);
@@ -73,7 +82,7 @@ public class MainActivity extends ActionBarActivity {
         allBtn.setVisibility(View.GONE);
         delBtn.setVisibility(View.GONE);
         closeBtn.setVisibility(View.GONE);
-        searchBtn.setVisibility(View.GONE);
+//        searchBtn.setVisibility(View.GONE);
 
         searchBtn.setOnClickListener(clickBtn);
         newBtn.setOnClickListener(clickBtn);
@@ -133,6 +142,12 @@ public class MainActivity extends ActionBarActivity {
             paper.setOnLongClickListener(longClick);
             paper.setData(acInfo);
             paper.editAble(true);
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    listSV.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
         }
         action2All(SETINDEX);
         return;
@@ -228,7 +243,8 @@ public class MainActivity extends ActionBarActivity {
             expandPaper _checkedPaper=(expandPaper) v;
             _checkedPaper.delChecked();
             showPageTitle("删除记录", "请勾选您需要删除的记录");
-//            searchBtn.setVisibility(View.GONE);
+            searchBtn.setVisibility(View.GONE);
+            searchKey_t.setVisibility(View.GONE);
             newBtn.setVisibility(View.GONE);
 //            allBtn.setVisibility(View.VISIBLE);
             delBtn.setVisibility(View.VISIBLE);
@@ -245,6 +261,7 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.searchBtn://搜索
+                    gotoItem(searchItem(searchKey_t.getText().toString()));
                     break;
                 case R.id.newBtn://新建
                     newOne();
@@ -264,16 +281,43 @@ public class MainActivity extends ActionBarActivity {
     };
 
     /**
+     * 按标题查询条目
+     * @param _key
+     * @return
+     */
+    private int searchItem(String _key){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(searchKey_t.getWindowToken(), 0);
+        return dataCenter.searchByName(_key);
+    }
+
+    /**
+     * 跳转到对应条目
+     * @param _index
+     */
+    private void gotoItem(int _index){
+        int yPosition=0;
+//        Log.d("LOGCAT", "_index:" + _index);
+        for (int i=0;i<_index;i++){
+            yPosition+=paperList.get(i).getMeasuredHeight();
+        }
+//        Log.d("LOGCAT", "yPosition:" + yPosition);
+        listSV.scrollTo(0,yPosition);
+    }
+
+    /**
      * 退出删除操作状态
      */
     private void gotoListPage(){
         pageType=0;
-//        searchBtn.setVisibility(View.VISIBLE);
+        searchBtn.setVisibility(View.VISIBLE);
+        searchKey_t.setVisibility(View.VISIBLE);
         newBtn.setVisibility(View.VISIBLE);
         allBtn.setVisibility(View.GONE);
         delBtn.setVisibility(View.GONE);
         closeBtn.setVisibility(View.GONE);
         action2All(DISABLEDEL);
+        showPageTitle("查看列表","");
     }
 
     /**

@@ -14,9 +14,23 @@
             android:id="@+id/title_t"
             android:layout_weight="1"
             android:textColor="@color/titleText"
-            android:textSize="@dimen/mainTextH2"
+            android:textSize="@dimen/mainTextH1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1" />
+        <EditText
+            android:padding="@dimen/textPadding"
+            android:background="@drawable/rounded_edittext"
+            android:id="@+id/searchKey_t"
+            android:hint="输入关键词"
+            android:textColorHint="@color/mainGreen"
+            android:layout_weight="1"
+            android:textColor="@color/mainYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1" />
         <!-- 按钮栏-->
         <LinearLayout
             android:orientation="horizontal"
@@ -64,6 +78,7 @@
         android:id="@+id/info_t"
         android:paddingLeft="@dimen/textBigPadding"
         android:paddingRight="@dimen/textBigPadding"
+        android:layout_marginBottom="@dimen/big_margin"
         android:textColor="@color/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -71,7 +86,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView"
+        android:id="@+id/listSV"
         android:layout_gravity="center_horizontal" >
         <LinearLayout
             android:padding="@dimen/textBigPadding"
