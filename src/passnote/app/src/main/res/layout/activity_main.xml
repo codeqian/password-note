@@ -70,6 +70,12 @@
                 android:src="@mipmap/closebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/settingBtn"
+                android:layout_margin="@dimen/little_margin"
+                android:src="@mipmap/setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
     <!-- 本页信息-->

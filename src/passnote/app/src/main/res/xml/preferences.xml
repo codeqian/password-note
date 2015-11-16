@@ -1,0 +1,24 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="设置">
+    <PreferenceScreen
+        android:title="修改口令">
+        <PreferenceScreen
+            android:title="修改口令">
+            <EditTextPreference
+                android:dialogTitle="输入您的新口令"
+                android:key="newKey"
+                android:summary="在这里输入您的新口令，存储的信息将使用新口令进行加密，请谨慎使用。"
+                android:title="输入新口令"
+                />
+        </PreferenceScreen>
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="关于应用">
+        <PreferenceScreen
+            android:key="aboutMe"
+            android:summary="作者：无牙。email:qzdszz@163.com。"
+            android:title="密本v0.1">
+        </PreferenceScreen>
+    </PreferenceScreen>
+</PreferenceScreen>

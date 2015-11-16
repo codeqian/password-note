@@ -3,6 +3,7 @@ package codepig.passnote;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
     private TextView title_t,info_t;
     private EditText searchKey_t;
     private LinearLayout contentList,pageTools;
-    private ImageView searchBtn,newBtn,allBtn,delBtn,closeBtn;
+    private ImageView searchBtn,newBtn,allBtn,delBtn,closeBtn,settingBtn;
     private int pageType=0;//页面类型，0=查看页，1=删除页
     private sqlHelper mDBHelper;
     private List<expandPaper> paperList;
@@ -74,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
         allBtn=(ImageView) findViewById(R.id.allBtn);
         delBtn=(ImageView) findViewById(R.id.delBtn);
         closeBtn=(ImageView) findViewById(R.id.closeBtn);
+        settingBtn=(ImageView) findViewById(R.id.settingBtn);
         listSV=(ScrollView) findViewById(R.id.listSV);
         alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", alertListener);
@@ -89,6 +91,7 @@ public class MainActivity extends ActionBarActivity {
         allBtn.setOnClickListener(clickBtn);
         delBtn.setOnClickListener(clickBtn);
         closeBtn.setOnClickListener(clickBtn);
+        settingBtn.setOnClickListener(clickBtn);
 
         showPageTitle("查看列表","");
 
@@ -197,8 +200,8 @@ public class MainActivity extends ActionBarActivity {
      * 打开设置界面
      */
     private void openSetting(){
-//        Intent intent=new Intent(getApplication(), settingActivity.class);
-//        startActivity(intent);
+        Intent intent=new Intent(getApplication(), settingActivity.class);
+        startActivity(intent);
     }
 
     //显示警告消息框
@@ -274,6 +277,9 @@ public class MainActivity extends ActionBarActivity {
                 case R.id.closeBtn://退出删除操作
                     gotoListPage();
                     break;
+                case R.id.settingBtn:
+                    openSetting();
+                    break;
                 default:
                     break;
             }
@@ -302,7 +308,7 @@ public class MainActivity extends ActionBarActivity {
             yPosition+=paperList.get(i).getMeasuredHeight();
         }
 //        Log.d("LOGCAT", "yPosition:" + yPosition);
-        listSV.scrollTo(0,yPosition);
+        listSV.scrollTo(0, yPosition);
     }
 
     /**
@@ -317,7 +323,7 @@ public class MainActivity extends ActionBarActivity {
         delBtn.setVisibility(View.GONE);
         closeBtn.setVisibility(View.GONE);
         action2All(DISABLEDEL);
-        showPageTitle("查看列表","");
+        showPageTitle("查看列表", "");
     }
 
     /**
@@ -370,6 +376,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            openSetting();
             return true;
         }
         return super.onOptionsItemSelected(item);

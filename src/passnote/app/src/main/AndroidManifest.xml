@@ -31,6 +31,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".settingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/action_settings"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
