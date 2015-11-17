@@ -13,6 +13,10 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import codepig.passnote.Utils.accountData;
+import codepig.passnote.Utils.dataCenter;
+import codepig.passnote.data.sqlCenter;
+
 /**
  * 加密解密
  * Created by QZD on 2015/9/17.
@@ -105,6 +109,20 @@ public class codeFactory {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /**
+     * 使用新口令重新加密
+     */
+    public static void reEncodeWords(){
+        for (int i=0;i< dataCenter.dataList.size();i++){
+            accountData _data=dataCenter.dataList.get(i);
+            if(sqlCenter.updataInDB(String.valueOf(_data.paperId), _data.paperName, _data.account, _data.password, _data.info)>0){
+                Log.d("LOGCAT", "保存成功");
+            }else {
+                Log.d("LOGCAT", "保存失败");
+            }
         }
     }
 

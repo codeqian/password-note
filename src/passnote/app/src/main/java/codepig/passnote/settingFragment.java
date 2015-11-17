@@ -6,18 +6,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.util.Log;
+
+import codepig.passnote.Utils.dataCenter;
+import codepig.passnote.math.codeFactory;
 
 /**
- * 设置面板的fragment
+ * 设置面板的fragment(暂不使用)
  * Created by QZD on 2015/3/9.
  */
 public class settingFragment extends PreferenceFragment {
     private Activity settingActivity;
     private SharedPreferences.Editor editor;
-    private PreferenceScreen aboutMe;
+    private PreferenceScreen mailMe;
+    private EditTextPreference newKey;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,26 +36,47 @@ public class settingFragment extends PreferenceFragment {
     }
 
     //编辑设置数据
-    public void editSetting(String _key,int _v){
-        editor.putInt(_key,_v);
+    public void savePassword(String password_t){
+        editor.putString("cameBefore", codeFactory.key2Md5(password_t));
         editor.commit();
+        dataCenter.theWords=password_t;
+        codeFactory.reEncodeWords();
     }
 
     private void init(){
-        aboutMe=(PreferenceScreen) findPreference("aboutMe");
-        aboutMe.setOnPreferenceClickListener(settingClick);
-//        SharedPreferences settings = settingActivity.getSharedPreferences("BoosjPlayerSetting", Context.MODE_PRIVATE);
-//        editor = settings.edit();
-        //根据之前的设置显示开关状态。（主要是重新安装以后，其他时候其实没意义）
+        mailMe=(PreferenceScreen) findPreference("mailMe");
+        newKey=(EditTextPreference) findPreference("newKey");
+        mailMe.setOnPreferenceClickListener(settingClick);
+        newKey.setOnPreferenceClickListener(settingClick);
+        newKey.setOnPreferenceChangeListener(settingChange);
+        SharedPreferences settings = settingActivity.getSharedPreferences("pwNoteSetting", Context.MODE_PRIVATE);
+        editor = settings.edit();
     }
 
-    //监听设置点击
+    /**
+     * 监听设置点击
+     */
     Preference.OnPreferenceClickListener settingClick=new Preference.OnPreferenceClickListener(){
         @Override
         public boolean onPreferenceClick(Preference pref) {
-            if (pref.getKey().equals("aboutMe")){
-                Uri uri = Uri.parse("qzdszz@163.com");
-                startActivity(new Intent(Intent.ACTION_VIEW,uri));
+            Log.d("LOGCAT", "click:" + pref.getKey());
+            if (pref.getKey().equals("mailMe")){
+                Uri uri = Uri.parse("mailto:qzdszz@163.com");
+                startActivity(new Intent(Intent.ACTION_SENDTO,uri));
+            }
+            return true;
+        }
+    };
+
+    /**
+     * 监听设置开关
+     */
+    Preference.OnPreferenceChangeListener settingChange=new Preference.OnPreferenceChangeListener(){
+        @Override
+        public boolean onPreferenceChange(Preference pre,Object newValue) {
+            Log.d("LOGCAT", "change:" + pre.getKey());
+            if (pre.getKey().equals("newKey")){
+                savePassword(newKey.getText().toString());
             }
             return true;
         }
