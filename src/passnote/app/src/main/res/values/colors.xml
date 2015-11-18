@@ -4,7 +4,9 @@
     <color name="titleYellow">#9CEE1B</color>
     <color name="mainGreen">#027D25</color>
     <color name="darkGreen">#005e1b</color>
+    <color name="blackGreen">#002b0b</color>
     <color name="titleText">#ffffff</color>
     <color name="hintGray">#6C6C6C</color>
     <color name="black">#000000</color>
+    <color name="color_transdark">#50000000</color>
 </resources>
