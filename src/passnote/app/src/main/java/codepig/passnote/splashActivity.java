@@ -46,9 +46,9 @@ public class splashActivity extends Activity {
             firstTime=false;
         }
         if(firstTime){
-            readme_t.setText("请输入您的口令。我不会保存该口令，并且目前不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
+            readme_t.setText("请输入您的口令。我不会保存该口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
         }else{
-            readme_t.setText("请输入您的口令。我不会保存该口令，并且目前不支持修改口令。如果您忘了，我无能为力。所以请一定，一定，一定记住该口令。");
+            readme_t.setText("欢迎回来。您又忘记密码了吧。这里的口令可一定，一定，一定要记住啊。");
         }
     }
 

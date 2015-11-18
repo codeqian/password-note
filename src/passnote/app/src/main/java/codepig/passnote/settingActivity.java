@@ -21,7 +21,7 @@ import codepig.passnote.math.codeFactory;
  */
 public class settingActivity extends Activity {
     private Context context;
-    private LinearLayout backBtn,connectBtn;
+    private LinearLayout backBtn,connectBtn,githubBtn;
     private EditText old_t,new_t;
     private Button okBtn;
     private SharedPreferences.Editor editor;
@@ -37,11 +37,13 @@ public class settingActivity extends Activity {
     private void init(){
         backBtn=(LinearLayout) findViewById(R.id.backBtn);
         connectBtn=(LinearLayout) findViewById(R.id.connectBtn);
+        githubBtn=(LinearLayout) findViewById(R.id.githubBtn);
         old_t=(EditText) findViewById(R.id.old_t);
         new_t=(EditText) findViewById(R.id.new_t);
         okBtn=(Button) findViewById(R.id.okBtn);
         backBtn.setOnClickListener(clickBtn);
         connectBtn.setOnClickListener(clickBtn);
+        githubBtn.setOnClickListener(clickBtn);
         okBtn.setOnClickListener(clickBtn);
     }
 
@@ -54,8 +56,12 @@ public class settingActivity extends Activity {
                     finish();
                     break;
                 case R.id.connectBtn://发邮件
-                    Uri uri = Uri.parse("mailto:qzdszz@163.com");
-                    startActivity(new Intent(Intent.ACTION_SENDTO,uri));
+                    Uri mailUri = Uri.parse("mailto:qzdszz@163.com");
+                    startActivity(new Intent(Intent.ACTION_SENDTO,mailUri));
+                    break;
+                case R.id.githubBtn:
+                    Uri gitUri = Uri.parse("https://github.com/codeqian/password-note/");
+                    startActivity(new Intent(Intent.ACTION_VIEW,gitUri));
                     break;
                 case R.id.okBtn://修改口令
                     settings = getSharedPreferences("pwNoteSetting", Context.MODE_PRIVATE);
