@@ -91,63 +91,94 @@
         android:padding="@dimen/textPadding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginBottom="@dimen/little_margin"
-            android:id="@+id/account_t"
-            android:text="account"
-            android:textColor="@color/mainGreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/account_edit"
-            android:background="@drawable/rounded_edittext"
-            android:singleLine="true"
-            android:textColor="@color/mainYellow"
-            android:layout_margin="@dimen/little_margin"
-            android:paddingLeft="@dimen/textPadding"
-            android:paddingRight="@dimen/textPadding"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入账号" />
-        <TextView
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="账号:"
+                android:textColor="@color/mainGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/account_t"
+                android:text="account"
+                android:textColor="@color/mainGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/account_edit"
+                android:background="@drawable/rounded_edittext"
+                android:singleLine="true"
+                android:textColor="@color/mainYellow"
+                android:layout_margin="@dimen/little_margin"
+                android:paddingLeft="@dimen/textPadding"
+                android:paddingRight="@dimen/textPadding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入账号" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginBottom="@dimen/little_margin"
-            android:id="@+id/password_t"
-            android:text="password"
-            android:textColor="@color/mainGreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/password_edit"
-            android:background="@drawable/rounded_edittext"
-            android:singleLine="true"
-            android:textColor="@color/mainYellow"
-            android:layout_margin="@dimen/little_margin"
-            android:paddingLeft="@dimen/textPadding"
-            android:paddingRight="@dimen/textPadding"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入密码" />
-        <TextView
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="密码:"
+                android:textColor="@color/mainGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/password_t"
+                android:text="password"
+                android:textColor="@color/mainGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/password_edit"
+                android:background="@drawable/rounded_edittext"
+                android:singleLine="true"
+                android:textColor="@color/mainYellow"
+                android:layout_margin="@dimen/little_margin"
+                android:paddingLeft="@dimen/textPadding"
+                android:paddingRight="@dimen/textPadding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入密码" />
+            </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginBottom="@dimen/little_margin"
-            android:id="@+id/info_t"
-            android:hint="备注"
-            android:textColorHint="@color/hintGray"
-            android:textColor="@color/mainGreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minLines="3"
-            android:maxLines="3" />
-        <EditText
-            android:id="@+id/info_edit"
-            android:background="@drawable/rounded_edittext"
-            android:textColor="@color/mainYellow"
-            android:layout_margin="@dimen/little_margin"
-            android:paddingLeft="@dimen/textPadding"
-            android:paddingRight="@dimen/textPadding"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入备注信息"
-            android:minLines="3"
-            android:maxLines="3"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="备注:"
+                android:textColor="@color/mainGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginBottom="@dimen/little_margin"
+                android:id="@+id/info_t"
+                android:text="备注"
+                android:textColorHint="@color/hintGray"
+                android:textColor="@color/mainGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minLines="3"
+                android:maxLines="3" />
+            <EditText
+                android:id="@+id/info_edit"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="@color/mainYellow"
+                android:layout_margin="@dimen/little_margin"
+                android:paddingLeft="@dimen/textPadding"
+                android:paddingRight="@dimen/textPadding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入备注信息"
+                android:minLines="3"
+                android:maxLines="3"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
