@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import codepig.passnote.Utils.dataCenter;
 import codepig.passnote.math.codeFactory;
+import codepig.passnote.math.filemanager;
 
 /**
  * 设置面板的activity
@@ -22,10 +25,11 @@ import codepig.passnote.math.codeFactory;
 public class settingActivity extends Activity {
     private Context context;
     private LinearLayout backBtn,connectBtn,githubBtn;
-    private EditText old_t,new_t;
-    private Button okBtn;
+    private EditText old_t,new_t,dir_t;
+    private Button okBtn,saveBtn;
     private SharedPreferences.Editor editor;
     private SharedPreferences settings;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,19 @@ public class settingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_l);
         init();
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 0:
+                        Toast.makeText(context, msg.getData().getString("Msg"), Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
     }
     private void init(){
         backBtn=(LinearLayout) findViewById(R.id.backBtn);
@@ -40,15 +57,18 @@ public class settingActivity extends Activity {
         githubBtn=(LinearLayout) findViewById(R.id.githubBtn);
         old_t=(EditText) findViewById(R.id.old_t);
         new_t=(EditText) findViewById(R.id.new_t);
+        dir_t=(EditText) findViewById(R.id.dir_t);
         okBtn=(Button) findViewById(R.id.okBtn);
+        saveBtn=(Button) findViewById(R.id.saveBtn);
         backBtn.setOnClickListener(clickBtn);
         connectBtn.setOnClickListener(clickBtn);
         githubBtn.setOnClickListener(clickBtn);
         okBtn.setOnClickListener(clickBtn);
+        saveBtn.setOnClickListener(clickBtn);
     }
 
     //监听按钮
-    private View.OnClickListener clickBtn = new Button.OnClickListener(){
+    protected View.OnClickListener clickBtn = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
@@ -84,6 +104,21 @@ public class settingActivity extends Activity {
                         return;
                     }
                     savePassword(new_t.getText().toString());
+                    break;
+                case R.id.saveBtn://保存文本
+                    Runnable homeInfoRunnable=new Runnable() {
+                        @Override
+                        public void run() {
+                            String saveCheck=filemanager.saveList2txt(dir_t.getText().toString());
+                            Message msg = new Message();
+                            msg.what = 0;
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Msg", saveCheck);
+                            msg.setData(bundle);
+                            mHandler.sendMessage(msg);
+                        }
+                    };
+                    homeInfoRunnable.run();
                     break;
                 default:
                     break;
