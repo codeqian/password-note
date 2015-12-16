@@ -27,6 +27,7 @@ import codepig.passnote.Utils.accountData;
 import codepig.passnote.Utils.dataCenter;
 import codepig.passnote.data.sqlCenter;
 import codepig.passnote.data.sqlHelper;
+import codepig.passnote.math.filemanager;
 import codepig.passnote.view.expandPaper;
 
 /**
@@ -57,6 +58,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkBackup();
     }
 
     /**
@@ -125,6 +132,26 @@ public class MainActivity extends ActionBarActivity {
             paper.setData(dataCenter.dataList.get(i));
         }
         action2All(SETINDEX);
+    }
+
+    /**
+     * 检查是否有新导入的记录
+     */
+    private void checkBackup(){
+        Log.d("LOGCAT","paperList:"+paperList.size());
+        if(filemanager.recovered && paperList.size()<dataCenter.dataList.size()){
+            for(int i=paperList.size();i<dataCenter.dataList.size();i++){
+                expandPaper paper=new expandPaper(this);
+                paperList.add(paper);
+                contentList.addView(paper);
+                paper.setOnLongClickListener(longClick);
+                paper.setData(dataCenter.dataList.get(i));
+                Log.d("LOGCAT", "dataCenter.dataList.get(i):" + dataCenter.dataList.get(i).paperName);
+            }
+            filemanager.recovered=false;
+            action2All(SETINDEX);
+        }
+        Log.d("LOGCAT","paperList:"+paperList.size());
     }
 
     /**

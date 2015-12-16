@@ -26,7 +26,7 @@ public class settingActivity extends Activity {
     private Context context;
     private LinearLayout backBtn,connectBtn,githubBtn;
     private EditText old_t,new_t,dir_t;
-    private Button okBtn,saveBtn;
+    private Button okBtn,saveBtn,backupBtn,recoverBtn;
     private SharedPreferences.Editor editor;
     private SharedPreferences settings;
     private Handler mHandler;
@@ -42,6 +42,12 @@ public class settingActivity extends Activity {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case 0:
+                        Toast.makeText(context, msg.getData().getString("Msg"), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(context, msg.getData().getString("Msg"), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
                         Toast.makeText(context, msg.getData().getString("Msg"), Toast.LENGTH_SHORT).show();
                         break;
                     default:
@@ -60,11 +66,15 @@ public class settingActivity extends Activity {
         dir_t=(EditText) findViewById(R.id.dir_t);
         okBtn=(Button) findViewById(R.id.okBtn);
         saveBtn=(Button) findViewById(R.id.saveBtn);
+        backupBtn=(Button) findViewById(R.id.backupBtn);
+        recoverBtn=(Button) findViewById(R.id.recoverBtn);
         backBtn.setOnClickListener(clickBtn);
         connectBtn.setOnClickListener(clickBtn);
         githubBtn.setOnClickListener(clickBtn);
         okBtn.setOnClickListener(clickBtn);
         saveBtn.setOnClickListener(clickBtn);
+        backupBtn.setOnClickListener(clickBtn);
+        recoverBtn.setOnClickListener(clickBtn);
     }
 
     //监听按钮
@@ -119,6 +129,36 @@ public class settingActivity extends Activity {
                         }
                     };
                     homeInfoRunnable.run();
+                    break;
+                case R.id.backupBtn:
+                    Runnable backupRunnable=new Runnable() {
+                        @Override
+                        public void run() {
+                            String saveCheck=filemanager.dataBackup();
+                            Message msg = new Message();
+                            msg.what = 1;
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Msg", saveCheck);
+                            msg.setData(bundle);
+                            mHandler.sendMessage(msg);
+                        }
+                    };
+                    backupRunnable.run();
+                    break;
+                case R.id.recoverBtn:
+                    Runnable recoverRunnable=new Runnable() {
+                        @Override
+                        public void run() {
+                            String saveCheck=filemanager.recoverData();
+                            Message msg = new Message();
+                            msg.what = 2;
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Msg", saveCheck);
+                            msg.setData(bundle);
+                            mHandler.sendMessage(msg);
+                        }
+                    };
+                    recoverRunnable.run();
                     break;
                 default:
                     break;

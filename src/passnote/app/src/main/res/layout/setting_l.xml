@@ -70,9 +70,9 @@
                     android:text="确定"
                     android:minHeight="@dimen/btnHigh"
                     android:textColor="@color/black"
-                    android:layout_marginTop="@dimen/little_margin"
+                    android:layout_margin="@dimen/little_margin"
                     android:background="@color/mainYellow"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <View
@@ -115,10 +115,49 @@
                     android:text="导出"
                     android:minHeight="@dimen/btnHigh"
                     android:textColor="@color/black"
-                    android:layout_marginTop="@dimen/little_margin"
+                    android:layout_margin="@dimen/little_margin"
                     android:background="@android:color/white"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/mainGreen" />
+            <LinearLayout
+                android:padding="@dimen/textPadding"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="数据备份"
+                    android:textColor="@color/titleText"
+                    android:textSize="@dimen/mainTextH1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/backupBtn"
+                        android:text="备份"
+                        android:minHeight="@dimen/btnHigh"
+                        android:textColor="@color/black"
+                        android:layout_margin="@dimen/little_margin"
+                        android:background="@android:color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <Button
+                        android:id="@+id/recoverBtn"
+                        android:text="恢复"
+                        android:minHeight="@dimen/btnHigh"
+                        android:textColor="@color/black"
+                        android:layout_margin="@dimen/little_margin"
+                        android:background="@android:color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -136,7 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
-                    android:text="版本号：v0.1 2015.11"
+                    android:text="版本号：v0.3 2015.12"
                     android:textColor="@color/titleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
