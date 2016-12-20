@@ -103,6 +103,7 @@ public class filemanager {
      * @return
      */
     public static String recoverData(){
+        String _errWords="导入失败-";
         checkSdcard();
         String _path=sdcardRoot+backupFile;
         File file = new File(_path);
@@ -116,32 +117,36 @@ public class filemanager {
                 inStream.close();
                 _msg = codeFactory.decodeWords(dataCenter.theWords, new String(buffer, "UTF-8"));
                 String[] dataList = _msg.split("\\|");
-                Log.d("LOGCAT","dataCenter.dataList:"+dataCenter.dataList.size());
                 for (int i=0;i< dataList.length;i++){
-                    Log.d("LOGCAT","data:"+dataList[i]);
                     String[] infoList = dataList[i].split(",");
-                    for (int n=0;n< infoList.length;n++){
-                        if(dataCenter.searchByName(infoList[0])==-1) {
-                            long _id=sqlCenter.insDataInDB(infoList[0],infoList[1],infoList[2],infoList[3]);
-                            accountData acInfo = new accountData();
-                            acInfo.paperId=_id;
-                            acInfo.paperName = infoList[0];
-                            acInfo.account = infoList[1];
+                    if(dataCenter.searchByName(infoList[0])==-1) {
+                        accountData acInfo = new accountData();
+                        acInfo.paperName = infoList[0];
+                        acInfo.account = infoList[1];
+                        try {
                             acInfo.password = infoList[2];
-                            acInfo.info = infoList[3];
-                            dataCenter.dataList.add(acInfo);
+                        }catch (Exception e){
+                            acInfo.password="";
                         }
+                        try {
+                            acInfo.info = infoList[3];
+                        }catch (Exception e){
+                            acInfo.info="";
+                        }
+                        long _id=sqlCenter.insDataInDB(acInfo.paperName,acInfo.account,acInfo.password,acInfo.info);
+                        acInfo.paperId=_id;
+                        dataCenter.dataList.add(acInfo);
                     }
                 }
-                Log.d("LOGCAT","dataCenter.dataList:"+dataCenter.dataList.size());
+//                Log.d("LOGCAT","dataCenter.dataList:"+dataCenter.dataList.size());
                 recovered=true;
-                return "恢复成功";
+                _errWords="恢复成功";
             }catch (Exception e){
             }
         }else {
-            return "数据文件不存在";
+            _errWords="数据文件不存在";
         }
-        return "导入失败";
+        return _errWords;
     }
 
     /**

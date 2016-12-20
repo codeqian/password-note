@@ -94,7 +94,7 @@ public class codeFactory {
      * @return
      */
     public static String decodeWords(String seed,String _info){
-//        Log.d("LOGCAT", "解密前的seed=" + seed + ",内容为:" + _info);
+        Log.d("LOGCAT", "解密前的seed=" + seed + ",内容为:" + _info);
         StringBuffer sb = new StringBuffer(16);
         sb.append(seed);
         while (sb.length() < 16) {
@@ -104,7 +104,7 @@ public class codeFactory {
             byte[] enc = toByte(_info);
             byte[] result = decrypt(sb.toString().getBytes(), enc);
             String coentn = new String(result);
-//            Log.d("LOGCAT", "解密后的内容为:" + coentn);
+            Log.d("LOGCAT", "解密后的内容为:" + coentn);
             return coentn;
         } catch (Exception e) {
             e.printStackTrace();
