@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <!-- 顶部工具栏-->
     <LinearLayout
-        android:padding="@dimen/textPadding"
+        android:padding="@dimen/textBigPadding"
         android:orientation="horizontal"
         android:background="@color/color_title"
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
             <ImageView
                 android:id="@+id/allBtn"
                 android:layout_marginLeft="@dimen/little_margin"
-                android:src="@mipmap/all"
+                android:src="@mipmap/check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <ImageView

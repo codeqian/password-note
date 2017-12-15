@@ -2,12 +2,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:state_checked="false"
         android:state_pressed="true"
-        android:drawable="@mipmap/select_nobtn"></item>
+        android:drawable="@mipmap/uncheck"></item>
     <item android:state_checked="false"
-        android:drawable="@mipmap/select_nobtn"></item>
+        android:drawable="@mipmap/uncheck"></item>
     <item android:state_checked="true"
         android:state_pressed="true"
-        android:drawable="@mipmap/selectbtn" />
+        android:drawable="@mipmap/check" />
     <item android:state_checked="true"
-        android:drawable="@mipmap/selectbtn"></item>
+        android:drawable="@mipmap/check"></item>
 </selector>

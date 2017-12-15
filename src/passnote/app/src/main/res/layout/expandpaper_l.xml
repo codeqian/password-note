@@ -19,8 +19,9 @@
             android:text="42"
             android:background="@color/color_label"
             android:textColor="@color/color_textLight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
         <LinearLayout
@@ -70,7 +71,7 @@
             <ImageView
                 android:layout_margin="@dimen/little_margin"
                 android:id="@+id/openBtn"
-                android:src="@mipmap/arrowbtn"
+                android:src="@mipmap/arrowbtn_down"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content" />
