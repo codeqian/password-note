@@ -15,14 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import codepig.passnote.Utils.dataCenter;
-import codepig.passnote.math.codeFactory;
-import codepig.passnote.math.filemanager;
+import codepig.passnote.Utils.CodeFactory;
+import codepig.passnote.Utils.FileManager;
 
 /**
  * 设置面板的activity
  * Created by QZD on 2015/3/9.
  */
-public class settingActivity extends Activity {
+public class SettingActivity extends Activity {
     private Context context;
     private LinearLayout backBtn,connectBtn,githubBtn;
     private EditText old_t,new_t,dir_t;
@@ -96,7 +96,7 @@ public class settingActivity extends Activity {
                 case R.id.okBtn://修改口令
                     settings = getSharedPreferences("pwNoteSetting", Context.MODE_PRIVATE);
                     editor = settings.edit();
-                    if(!codeFactory.key2Md5(old_t.getText().toString()).equals(settings.getString("cameBefore", ""))){
+                    if(!CodeFactory.key2Md5(old_t.getText().toString()).equals(settings.getString("cameBefore", ""))){
                         Toast.makeText(context, "旧暗号对不上啊！", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -104,7 +104,7 @@ public class settingActivity extends Activity {
                         Toast.makeText(context, "您还没输入新口令呢！", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    String checkMsg= codeFactory.checkWordLength(new_t.getText().toString());
+                    String checkMsg= CodeFactory.checkWordLength(new_t.getText().toString());
                     if(checkMsg.equals("tooLong")){
                         Toast.makeText(context, "口令长度不能超过16个字符！", Toast.LENGTH_SHORT).show();
                         return;
@@ -119,7 +119,7 @@ public class settingActivity extends Activity {
                     Runnable homeInfoRunnable=new Runnable() {
                         @Override
                         public void run() {
-                            String saveCheck=filemanager.saveList2txt(dir_t.getText().toString());
+                            String saveCheck= FileManager.saveList2txt(dir_t.getText().toString());
                             Message msg = new Message();
                             msg.what = 0;
                             Bundle bundle = new Bundle();
@@ -134,7 +134,7 @@ public class settingActivity extends Activity {
                     Runnable backupRunnable=new Runnable() {
                         @Override
                         public void run() {
-                            String saveCheck=filemanager.dataBackup();
+                            String saveCheck= FileManager.dataBackup();
                             Message msg = new Message();
                             msg.what = 1;
                             Bundle bundle = new Bundle();
@@ -149,7 +149,7 @@ public class settingActivity extends Activity {
                     Runnable recoverRunnable=new Runnable() {
                         @Override
                         public void run() {
-                            String saveCheck=filemanager.recoverData();
+                            String saveCheck= FileManager.recoverData();
                             Message msg = new Message();
                             msg.what = 2;
                             Bundle bundle = new Bundle();
@@ -171,10 +171,10 @@ public class settingActivity extends Activity {
      * @param password_t
      */
     public void savePassword(String password_t){
-        editor.putString("cameBefore", codeFactory.key2Md5(password_t));
+        editor.putString("cameBefore", CodeFactory.key2Md5(password_t));
         editor.commit();
         dataCenter.theWords=password_t;
-        codeFactory.reEncodeWords();
+        CodeFactory.reEncodeWords();
         Toast.makeText(context, "口令修改成功！", Toast.LENGTH_SHORT).show();
         finish();
     }

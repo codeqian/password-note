@@ -13,13 +13,13 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 
 import codepig.passnote.Utils.dataCenter;
-import codepig.passnote.math.codeFactory;
+import codepig.passnote.Utils.CodeFactory;
 
 /**
  * 设置面板的fragment(暂不使用)
  * Created by QZD on 2015/3/9.
  */
-public class settingFragment extends PreferenceFragment {
+public class SettingFragment extends PreferenceFragment {
     private Activity settingActivity;
     private SharedPreferences.Editor editor;
     private PreferenceScreen mailMe;
@@ -37,10 +37,10 @@ public class settingFragment extends PreferenceFragment {
 
     //编辑设置数据
     public void savePassword(String password_t){
-        editor.putString("cameBefore", codeFactory.key2Md5(password_t));
+        editor.putString("cameBefore", CodeFactory.key2Md5(password_t));
         editor.commit();
         dataCenter.theWords=password_t;
-        codeFactory.reEncodeWords();
+        CodeFactory.reEncodeWords();
     }
 
     private void init(){

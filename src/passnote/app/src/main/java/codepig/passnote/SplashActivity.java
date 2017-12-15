@@ -5,22 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import codepig.passnote.Utils.config;
 import codepig.passnote.Utils.dataCenter;
-import codepig.passnote.math.codeFactory;
+import codepig.passnote.Utils.CodeFactory;
 
 /**
  * 引导页
  * Created by QZD on 2015/9/15.
  */
-public class splashActivity extends Activity {
+public class SplashActivity extends Activity {
     private Context context;
     private Button enterBtn;
     private EditText password_t,passwordCheck_t;
@@ -58,7 +56,7 @@ public class splashActivity extends Activity {
     private View.OnClickListener enterApp = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
-            String checkMsg=codeFactory.checkWordLength(password_t.getText().toString());
+            String checkMsg= CodeFactory.checkWordLength(password_t.getText().toString());
             if(checkMsg.equals("tooLong")){
                 Toast.makeText(context, "口令长度不能超过16个字符！", Toast.LENGTH_SHORT).show();
                 return;
@@ -76,11 +74,11 @@ public class splashActivity extends Activity {
                     Toast.makeText(context, "您两次输入不一样啊！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                editor.putString("cameBefore", codeFactory.key2Md5(password_t.getText().toString()));
+                editor.putString("cameBefore", CodeFactory.key2Md5(password_t.getText().toString()));
                 editor.commit();
             }else{
                 //判断口令是否正确
-                if(!codeFactory.key2Md5(password_t.getText().toString()).equals(settings.getString("cameBefore", ""))){
+                if(!CodeFactory.key2Md5(password_t.getText().toString()).equals(settings.getString("cameBefore", ""))){
                     Toast.makeText(context, "暗号对不上啊！", Toast.LENGTH_SHORT).show();
                     return;
                 }

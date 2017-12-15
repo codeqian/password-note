@@ -9,8 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -23,11 +21,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import codepig.passnote.Utils.accountData;
+import codepig.passnote.Utils.AccountData;
 import codepig.passnote.Utils.dataCenter;
-import codepig.passnote.data.sqlCenter;
-import codepig.passnote.data.sqlHelper;
-import codepig.passnote.math.filemanager;
+import codepig.passnote.data.SqlCenter;
+import codepig.passnote.data.SqlHelper;
+import codepig.passnote.Utils.FileManager;
 import codepig.passnote.view.expandPaper;
 
 /**
@@ -42,10 +40,11 @@ public class MainActivity extends ActionBarActivity {
     private LinearLayout contentList,pageTools;
     private ImageView searchBtn,newBtn,allBtn,delBtn,closeBtn,settingBtn;
     private int pageType=0;//页面类型，0=查看页，1=删除页
-    private sqlHelper mDBHelper;
+    private SqlHelper mDBHelper;
     private List<expandPaper> paperList;
     private ScrollView listSV;
     private Handler mHandler = new Handler();
+    private int _searchIndex=0;
 
     private final int ENABLEDEL=0;
     private final int DELPAPER=1;
@@ -100,15 +99,15 @@ public class MainActivity extends ActionBarActivity {
         closeBtn.setOnClickListener(clickBtn);
         settingBtn.setOnClickListener(clickBtn);
 
-        showPageTitle("查看列表","");
+        showPageTitle("搜索","");
 
         //获取DB管理
         if(mDBHelper==null){
             //获取数据库对象，如果数据库不存在，则创建数据库，messageCode.APPDBNAME为数据库名
-            mDBHelper=new sqlHelper(this);
+            mDBHelper=new SqlHelper(this);
         }
-        sqlCenter.initSqlManager(mDBHelper);
-        sqlCenter.getList();
+        SqlCenter.initSqlManager(mDBHelper);
+        SqlCenter.getList();
         creatList();
     }
 
@@ -139,7 +138,7 @@ public class MainActivity extends ActionBarActivity {
      */
     private void checkBackup(){
         Log.d("LOGCAT","paperList:"+paperList.size());
-        if(filemanager.recovered && paperList.size()<dataCenter.dataList.size()){
+        if(FileManager.recovered && paperList.size()<dataCenter.dataList.size()){
             for(int i=paperList.size();i<dataCenter.dataList.size();i++){
                 expandPaper paper=new expandPaper(this);
                 paperList.add(paper);
@@ -148,7 +147,7 @@ public class MainActivity extends ActionBarActivity {
                 paper.setData(dataCenter.dataList.get(i));
                 Log.d("LOGCAT", "dataCenter.dataList.get(i):" + dataCenter.dataList.get(i).paperName);
             }
-            filemanager.recovered=false;
+            FileManager.recovered=false;
             action2All(SETINDEX);
         }
         Log.d("LOGCAT","paperList:"+paperList.size());
@@ -158,8 +157,8 @@ public class MainActivity extends ActionBarActivity {
      * 新建一条
      */
     private void newOne(){
-        accountData acInfo=new accountData();
-        acInfo.paperId=sqlCenter.insDataInDB("","","","");
+        AccountData acInfo=new AccountData();
+        acInfo.paperId= SqlCenter.insDataInDB("","","","");
         if(acInfo.paperId==-1){
             Toast.makeText(context, "插入条目失败", Toast.LENGTH_SHORT).show();
             return;
@@ -188,7 +187,7 @@ public class MainActivity extends ActionBarActivity {
      */
     private void deleteOneInData(int _index){
         long _id=dataCenter.dataList.get(_index).paperId;
-        sqlCenter.delDataInDB(String.valueOf(_id));
+        SqlCenter.delDataInDB(String.valueOf(_id));
         dataCenter.dataList.remove(_index);
     }
 
@@ -227,7 +226,7 @@ public class MainActivity extends ActionBarActivity {
      * 打开设置界面
      */
     private void openSetting(){
-        Intent intent=new Intent(getApplication(), settingActivity.class);
+        Intent intent=new Intent(getApplication(), SettingActivity.class);
         startActivity(intent);
     }
 
@@ -321,7 +320,11 @@ public class MainActivity extends ActionBarActivity {
     private int searchItem(String _key){
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchKey_t.getWindowToken(), 0);
-        return dataCenter.searchByName(_key);
+        _searchIndex=dataCenter.searchByName(_key,_searchIndex);
+        if(_searchIndex==-1){
+            _searchIndex=0;
+        }
+        return _searchIndex;
     }
 
     /**
@@ -350,14 +353,14 @@ public class MainActivity extends ActionBarActivity {
         delBtn.setVisibility(View.GONE);
         closeBtn.setVisibility(View.GONE);
         action2All(DISABLEDEL);
-        showPageTitle("查看列表", "");
+        showPageTitle("搜索", "");
     }
 
     /**
      * 退出app
      */
     private void quitApp(){
-        sqlCenter.closeDB();
+        SqlCenter.closeDB();
         alertDialog.hide();
         System.exit(0);
     }

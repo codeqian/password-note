@@ -3,21 +3,20 @@ package codepig.passnote.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import codepig.passnote.Utils.accountData;
+import codepig.passnote.Utils.AccountData;
 import codepig.passnote.Utils.config;
 import codepig.passnote.Utils.dataCenter;
-import codepig.passnote.math.codeFactory;
+import codepig.passnote.Utils.CodeFactory;
 
 /**
  * 数据库操作
  * Created by QZD on 2015/9/29.
  */
-public class sqlCenter {
-    private static sqlHelper dbManager;
+public class SqlCenter {
+    private static SqlHelper dbManager;
     private static SQLiteDatabase mDB;
-    public static void initSqlManager(sqlHelper _dbManager){
+    public static void initSqlManager(SqlHelper _dbManager){
         dbManager=_dbManager;
         mDB=dbManager.getWritableDatabase();
     }
@@ -36,12 +35,12 @@ public class sqlCenter {
         int listLenth=c.getCount();
         if(listLenth>0){
             for(int i=0;i<listLenth;i++) {
-                accountData acInfo=new accountData();
+                AccountData acInfo=new AccountData();
                 acInfo.paperId=c.getInt(0);
-                acInfo.paperName=codeFactory.decodeWords(dataCenter.theWords,c.getString(1));
-                acInfo.account=codeFactory.decodeWords(dataCenter.theWords, c.getString(2));
-                acInfo.password=codeFactory.decodeWords(dataCenter.theWords, c.getString(3));
-                acInfo.info=codeFactory.decodeWords(dataCenter.theWords, c.getString(4));
+                acInfo.paperName= CodeFactory.decodeWords(dataCenter.theWords,c.getString(1));
+                acInfo.account= CodeFactory.decodeWords(dataCenter.theWords, c.getString(2));
+                acInfo.password= CodeFactory.decodeWords(dataCenter.theWords, c.getString(3));
+                acInfo.info= CodeFactory.decodeWords(dataCenter.theWords, c.getString(4));
                 dataCenter.dataList.add(acInfo);
 //                Log.d("LOGCAT","data:"+acInfo.paperId+"-"+acInfo.paperName);
                 c.moveToNext();
@@ -55,10 +54,10 @@ public class sqlCenter {
      */
     public static long insDataInDB(String _name,String _ac,String _pw,String _info){
         ContentValues cv=new ContentValues();
-        cv.put("name", codeFactory.encodeWords(dataCenter.theWords,_name));
-        cv.put("ac", codeFactory.encodeWords(dataCenter.theWords,_ac));
-        cv.put("pw", codeFactory.encodeWords(dataCenter.theWords,_pw));
-        cv.put("info", codeFactory.encodeWords(dataCenter.theWords,_info));
+        cv.put("name", CodeFactory.encodeWords(dataCenter.theWords,_name));
+        cv.put("ac", CodeFactory.encodeWords(dataCenter.theWords,_ac));
+        cv.put("pw", CodeFactory.encodeWords(dataCenter.theWords,_pw));
+        cv.put("info", CodeFactory.encodeWords(dataCenter.theWords,_info));
         //插入下载记录，插入失败会返回-1
         long _id=mDB.insert(config.LISTTABLENAME, "null",cv);
         if(_id>=0) {
@@ -75,10 +74,10 @@ public class sqlCenter {
         String selection = "_id=?";
         String[] selectionArgs = new String[] {_mid};
         ContentValues values = new ContentValues();
-        values.put("name", codeFactory.encodeWords(dataCenter.theWords,_name));
-        values.put("ac",codeFactory.encodeWords(dataCenter.theWords, _ac));
-        values.put("pw", codeFactory.encodeWords(dataCenter.theWords,_pw));
-        values.put("info", codeFactory.encodeWords(dataCenter.theWords,_info));
+        values.put("name", CodeFactory.encodeWords(dataCenter.theWords,_name));
+        values.put("ac", CodeFactory.encodeWords(dataCenter.theWords, _ac));
+        values.put("pw", CodeFactory.encodeWords(dataCenter.theWords,_pw));
+        values.put("info", CodeFactory.encodeWords(dataCenter.theWords,_info));
         long _id=mDB.update(config.LISTTABLENAME, values, selection, selectionArgs);
         if(_id>=0) {
             return _id;

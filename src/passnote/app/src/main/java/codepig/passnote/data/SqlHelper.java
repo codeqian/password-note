@@ -12,9 +12,9 @@ import codepig.passnote.Utils.config;
  * 管理sql数据
  * Created by QZD on 2015/9/28.
  */
-public class sqlHelper extends SQLiteOpenHelper {
+public class SqlHelper extends SQLiteOpenHelper {
 
-    public sqlHelper(Context context)
+    public SqlHelper(Context context)
     {
         super(context, config.APPDBNAME, null, 2);//this(context, name, factory, version, null);
     }

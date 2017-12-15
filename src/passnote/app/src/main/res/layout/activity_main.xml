@@ -15,7 +15,6 @@
             android:id="@+id/title_t"
             android:layout_marginRight="@dimen/little_margin"
             android:textColor="@color/color_textBright"
-            android:textSize="@dimen/mainTextH1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

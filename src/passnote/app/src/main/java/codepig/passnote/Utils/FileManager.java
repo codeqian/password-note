@@ -1,4 +1,4 @@
-package codepig.passnote.math;
+package codepig.passnote.Utils;
 
 import android.util.Log;
 
@@ -7,15 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
-import codepig.passnote.Utils.accountData;
-import codepig.passnote.Utils.dataCenter;
-import codepig.passnote.data.sqlCenter;
+import codepig.passnote.data.SqlCenter;
 
 /**
  * 本地文件管理
  * Created by QZD on 2015/12/3.
  */
-public class filemanager {
+public class FileManager {
     private static File txtFile;
     /**
      * 获取SDCard根目录
@@ -41,7 +39,7 @@ public class filemanager {
         if(checkSdcard()){
             try{
                 for (int i=0;i< dataCenter.dataList.size();i++){
-                    accountData mData=dataCenter.dataList.get(i);
+                    AccountData mData=dataCenter.dataList.get(i);
                     _msg+=mData.paperName+",";
                     _msg+=mData.account+",";
                     _msg+=mData.password+",";
@@ -74,7 +72,7 @@ public class filemanager {
         if(checkSdcard()){
             try{
                 for (int i=0;i< dataCenter.dataList.size();i++){
-                    accountData mData=dataCenter.dataList.get(i);
+                    AccountData mData=dataCenter.dataList.get(i);
                     _msg+=mData.paperName+",";
                     _msg+=mData.account+",";
                     _msg+=mData.password+",";
@@ -85,7 +83,7 @@ public class filemanager {
                 }
                 FileOutputStream outStream = new FileOutputStream(sdcardRoot+backupFile,false);
                 OutputStreamWriter writer = new OutputStreamWriter(outStream,"UTF-8");
-                writer.write(codeFactory.encodeWords(dataCenter.theWords,_msg));
+                writer.write(CodeFactory.encodeWords(dataCenter.theWords,_msg));
                 writer.flush();
                 writer.close();
                 outStream.close();
@@ -115,12 +113,12 @@ public class filemanager {
                 byte[] buffer = new byte[inStream.available()];
                 inStream.read(buffer);
                 inStream.close();
-                _msg = codeFactory.decodeWords(dataCenter.theWords, new String(buffer, "UTF-8"));
+                _msg = CodeFactory.decodeWords(dataCenter.theWords, new String(buffer, "UTF-8"));
                 String[] dataList = _msg.split("\\|");
                 for (int i=0;i< dataList.length;i++){
                     String[] infoList = dataList[i].split(",");
-                    if(dataCenter.searchByName(infoList[0])==-1) {
-                        accountData acInfo = new accountData();
+                    if(dataCenter.searchByName(infoList[0],0)==-1) {
+                        AccountData acInfo = new AccountData();
                         acInfo.paperName = infoList[0];
                         acInfo.account = infoList[1];
                         try {
@@ -133,7 +131,7 @@ public class filemanager {
                         }catch (Exception e){
                             acInfo.info="";
                         }
-                        long _id=sqlCenter.insDataInDB(acInfo.paperName,acInfo.account,acInfo.password,acInfo.info);
+                        long _id= SqlCenter.insDataInDB(acInfo.paperName,acInfo.account,acInfo.password,acInfo.info);
                         acInfo.paperId=_id;
                         dataCenter.dataList.add(acInfo);
                     }

@@ -16,8 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import codepig.passnote.R;
-import codepig.passnote.Utils.accountData;
-import codepig.passnote.data.sqlCenter;
+import codepig.passnote.Utils.AccountData;
+import codepig.passnote.data.SqlCenter;
 
 /**
  * 内容单页view
@@ -32,7 +32,7 @@ public class expandPaper extends LinearLayout {
     private int durationMillis = 200;
     private LinearLayout mainBody,contentPage,title_plan;
     private Animation mExpandAnimation,mCollapseAnimation;
-    private accountData mData=null;
+    private AccountData mData=null;
     private long id;
     public expandPaper(Context context) {
         super(context);
@@ -113,7 +113,7 @@ public class expandPaper extends LinearLayout {
     /**
      * 填写信息
      */
-    public void setData(accountData _data){
+    public void setData(AccountData _data){
         mData=_data;
         id=_data.paperId;
 //        index_t.setText(String.valueOf(_index));
@@ -169,7 +169,7 @@ public class expandPaper extends LinearLayout {
         account_t.setText(mData.account);
         password_t.setText(mData.password);
         info_t.setText(mData.info);
-        if(sqlCenter.updataInDB(String.valueOf(mData.paperId),mData.paperName,mData.account,mData.password,mData.info)>0){
+        if(SqlCenter.updataInDB(String.valueOf(mData.paperId),mData.paperName,mData.account,mData.password,mData.info)>0){
             editAble(false);
         }else {
             Log.d("LOGCAT", "保存失败");

@@ -3,7 +3,7 @@ package codepig.passnote;
 import android.test.InstrumentationTestCase;
 import android.util.Log;
 
-import codepig.passnote.math.codeFactory;
+import codepig.passnote.Utils.CodeFactory;
 
 /**
  * 编码单元测试
@@ -14,12 +14,12 @@ public class codeTest extends InstrumentationTestCase {
         testDecode("key",testEncode("key","test"));
     }
     public String testEncode(String _seed,String _key){
-        String answer=codeFactory.encodeWords(_seed, _key);
-        Log.d("LOGCAT", codeFactory.encodeWords(_seed,_key));
+        String answer= CodeFactory.encodeWords(_seed, _key);
+        Log.d("LOGCAT", CodeFactory.encodeWords(_seed,_key));
         return answer;
     }
     public String testDecode(String _seed,String _key){
-        String answer=codeFactory.decodeWords(_seed, _key);
+        String answer= CodeFactory.decodeWords(_seed, _key);
         Log.d("LOGCAT", answer);
         return answer;
     }
