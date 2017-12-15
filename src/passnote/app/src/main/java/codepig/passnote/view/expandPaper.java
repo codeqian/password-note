@@ -255,7 +255,7 @@ public class expandPaper extends LinearLayout {
         }else {
             saveBtn.setVisibility(GONE);
             editBtn.setVisibility(VISIBLE);
-            title_edit.setVisibility(GONE);
+            title_edit.setVisibility(INVISIBLE);
             account_edit.setVisibility(GONE);
             password_edit.setVisibility(GONE);
             info_edit.setVisibility(GONE);

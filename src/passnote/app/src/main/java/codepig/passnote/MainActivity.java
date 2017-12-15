@@ -274,7 +274,7 @@ public class MainActivity extends ActionBarActivity {
             _checkedPaper.delChecked();
             showPageTitle("删除记录", "请勾选您需要删除的记录");
             searchBtn.setVisibility(View.GONE);
-            searchKey_t.setVisibility(View.GONE);
+            searchKey_t.setVisibility(View.INVISIBLE);
             newBtn.setVisibility(View.GONE);
 //            allBtn.setVisibility(View.VISIBLE);
             delBtn.setVisibility(View.VISIBLE);

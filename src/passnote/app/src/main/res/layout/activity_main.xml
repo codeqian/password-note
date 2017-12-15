@@ -1,20 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@mipmap/bg"
+    android:background="@color/color_bg"
     android:layout_height="match_parent">
     <!-- 顶部工具栏-->
     <LinearLayout
         android:padding="@dimen/textPadding"
         android:orientation="horizontal"
-        android:background="@color/color_transdark"
+        android:background="@color/color_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <!-- 标题-->
         <TextView
             android:text="title"
             android:id="@+id/title_t"
-            android:layout_weight="1"
-            android:textColor="@color/titleText"
+            android:layout_marginRight="@dimen/little_margin"
+            android:textColor="@color/color_textBright"
             android:textSize="@dimen/mainTextH1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,9 +25,9 @@
             android:background="@drawable/rounded_edittext"
             android:id="@+id/searchKey_t"
             android:hint="输入关键词"
-            android:textColorHint="@color/mainGreen"
+            android:textColorHint="@color/color_textLight"
             android:layout_weight="1"
-            android:textColor="@color/mainYellow"
+            android:textColor="@color/color_textBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -85,8 +85,7 @@
         android:id="@+id/info_t"
         android:paddingLeft="@dimen/textPadding"
         android:paddingRight="@dimen/textPadding"
-        android:layout_marginBottom="@dimen/big_margin"
-        android:textColor="@color/titleText"
+        android:textColor="@color/color_textLight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <!-- 内容-->

@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainBody"
-    android:layout_margin="@dimen/page_margin"
+    android:layout_margin="@dimen/little_margin"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-     >
+    android:layout_height="wrap_content">
     <!-- 标题-->
     <LinearLayout
         android:id="@+id/title_plan"
+        android:layout_marginBottom="@dimen/little_margin"
+        android:background="@color/color_title"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RelativeLayout
-            android:orientation="horizontal"
+        <TextView
+            android:padding="4dp"
+            android:id="@+id/index_t"
+            android:text="42"
+            android:background="@color/color_label"
+            android:textColor="@color/color_textLight"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@mipmap/indexbg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/index_t"
-                android:text="42"
-                android:textColor="@color/titleYellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
         <LinearLayout
-            android:background="@color/titleYellow"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
                 android:text="title"
                 android:id="@+id/title_t"
-                android:layout_weight="1"
-                android:textColor="@color/mainGreen"
+                android:layout_margin="@dimen/little_margin"
+                android:textColor="@color/color_textLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical" />
@@ -46,14 +39,14 @@
                 android:background="@drawable/rounded_edittext"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:textColor="@color/mainYellow"
+                android:textColorHint="@color/color_textLight"
+                android:textColor="@color/color_textBright"
                 android:layout_margin="@dimen/little_margin"
                 android:paddingLeft="@dimen/textPadding"
                 android:paddingRight="@dimen/textPadding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="请输入标题"
-                android:layout_gravity="center" />
+                android:hint="请输入标题" />
             <CheckBox
                 style="@style/circleCheckbox"
                 android:id="@+id/delCheck"
@@ -86,7 +79,7 @@
     <!-- 内容-->
     <LinearLayout
         android:id="@+id/contentPage"
-        android:background="@color/mainYellow"
+        android:background="@color/color_title"
         android:orientation="vertical"
         android:padding="@dimen/textPadding"
         android:layout_width="match_parent"
@@ -98,20 +91,21 @@
             android:layout_height="wrap_content">
             <TextView
                 android:text="账号:"
-                android:textColor="@color/mainGreen"
+                android:textColor="@color/color_textLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/account_t"
                 android:text="account"
-                android:textColor="@color/mainGreen"
+                android:textColor="@color/color_textLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/account_edit"
                 android:background="@drawable/rounded_edittext"
                 android:singleLine="true"
-                android:textColor="@color/mainYellow"
+                android:textColorHint="@color/color_textLight"
+                android:textColor="@color/color_textBright"
                 android:layout_margin="@dimen/little_margin"
                 android:paddingLeft="@dimen/textPadding"
                 android:paddingRight="@dimen/textPadding"
@@ -126,20 +120,21 @@
             android:layout_height="wrap_content">
             <TextView
                 android:text="密码:"
-                android:textColor="@color/mainGreen"
+                android:textColor="@color/color_textLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/password_t"
                 android:text="password"
-                android:textColor="@color/mainGreen"
+                android:textColor="@color/color_textLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/password_edit"
                 android:background="@drawable/rounded_edittext"
                 android:singleLine="true"
-                android:textColor="@color/mainYellow"
+                android:textColorHint="@color/color_textLight"
+                android:textColor="@color/color_textBright"
                 android:layout_margin="@dimen/little_margin"
                 android:paddingLeft="@dimen/textPadding"
                 android:paddingRight="@dimen/textPadding"
@@ -154,15 +149,14 @@
             android:layout_height="wrap_content">
             <TextView
                 android:text="备注:"
-                android:textColor="@color/mainGreen"
+                android:textColor="@color/color_textLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginBottom="@dimen/little_margin"
                 android:id="@+id/info_t"
                 android:text="备注"
-                android:textColorHint="@color/hintGray"
-                android:textColor="@color/mainGreen"
+                android:textColor="@color/color_textLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minLines="3"
@@ -170,7 +164,8 @@
             <EditText
                 android:id="@+id/info_edit"
                 android:background="@drawable/rounded_edittext"
-                android:textColor="@color/mainYellow"
+                android:textColorHint="@color/color_textLight"
+                android:textColor="@color/color_textBright"
                 android:layout_margin="@dimen/little_margin"
                 android:paddingLeft="@dimen/textPadding"
                 android:paddingRight="@dimen/textPadding"

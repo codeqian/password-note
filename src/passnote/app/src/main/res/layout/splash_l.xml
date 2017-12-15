@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/mainbg"
+    android:background="@color/color_title"
     android:layout_height="match_parent"
     android:gravity="center">
     <LinearLayout
@@ -35,11 +35,12 @@
         </RelativeLayout>
         <EditText
             android:id="@+id/password_t"
-            android:background="@drawable/rounded_edittext"
+            android:background="@drawable/rounded_shape"
             android:width="300sp"
             android:singleLine="true"
             android:hint="口令：请输入不超过16个字符的文本"
-            android:textColor="@color/mainYellow"
+            android:textColorHint="@color/color_textLight"
+            android:textColor="@color/color_textBright"
             android:layout_margin="@dimen/little_margin"
             android:textSize="@dimen/mainTextSize"
             android:paddingLeft="@dimen/textPadding"
@@ -49,7 +50,7 @@
             android:password="true"
             android:layout_gravity="center" />
         <EditText
-            android:background="@drawable/rounded_edittext"
+            android:background="@drawable/rounded_shape"
             android:id="@+id/passwordCheck_t"
             android:layout_margin="@dimen/little_margin"
             android:hint="确认口令"
@@ -58,7 +59,8 @@
             android:paddingRight="@dimen/textPadding"
             android:singleLine="true"
             android:textSize="@dimen/mainTextSize"
-            android:textColor="@color/mainYellow"
+            android:textColorHint="@color/color_textLight"
+            android:textColor="@color/color_textBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:password="true"
@@ -67,7 +69,7 @@
             android:text="GO"
             android:layout_marginTop="@dimen/big_margin"
             android:id="@+id/enterBtn"
-            android:textColor="@color/mainGreen"
+            android:textColor="@color/color_textBright"
             android:minHeight="24sp"
             android:background="@drawable/rounded_shape"
             android:layout_width="wrap_content"
